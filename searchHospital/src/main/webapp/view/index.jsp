@@ -7,6 +7,7 @@
 <title></title>
 </head>
 <body>
+<h1>push</h1>
 	<h2>WelCome Home! ${title}</h2>
 	<h2>Today : ${time}</h2>
 </body>
