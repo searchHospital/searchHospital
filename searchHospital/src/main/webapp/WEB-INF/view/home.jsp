@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +35,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Find Helper</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -62,23 +63,36 @@
     </nav>
 
     <!-- Header -->
-    <header class="masthead">
+ <!--    <header class="masthead">
       <div class="container">
         <div class="intro-text">
           <div class="intro-lead-in">Welcome To Our Studio!</div>
           <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+          btn은 부트스트랩의 버튼모양, primary는 색상, xl은 사이즈
         </div>
       </div>
-    </header>
-
-    <!-- Services -->
+    </header> -->
+ 
+ 
+ <!-- search -->
+ 	<section id="search">
+ 	<div class="search body">
+ 	<div class="search-line">
+ 	<div class="search filter">
+ 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
+ 	</div>
+ 	</div>
+ 	
+ 	</div>
+ 	</section>
+ <!--    Services -->
     <section id="services">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Find Helper!</h2>
+            <h3 class="section-subheading text-muted">Find an open hospital! <br> Where you want or your surroundings.</h3>
           </div>
         </div>
         <div class="row text-center">
@@ -87,8 +101,8 @@
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">E-Commerce</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <h4 class="service-heading"> 안녕 </h4>
+            <p class="text-muted">Lorem ipsu하이m dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -109,8 +123,9 @@
         </div>
       </div>
     </section>
-
-    <!-- Portfolio Grid -->
+    
+<!-- 
+    Portfolio Grid
     <section class="bg-light" id="portfolio">
       <div class="container">
         <div class="row">
@@ -208,7 +223,7 @@
       </div>
     </section>
 
-    <!-- About -->
+    About
     <section id="about">
       <div class="container">
         <div class="row">
@@ -289,7 +304,7 @@
       </div>
     </section>
 
-    <!-- Team -->
+    Team
     <section class="bg-light" id="team">
       <div class="container">
         <div class="row">
@@ -380,7 +395,7 @@
       </div>
     </section>
 
-    <!-- Clients -->
+    Clients
     <section class="py-5">
       <div class="container">
         <div class="row">
@@ -408,7 +423,7 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    Contact
     <section id="contact">
       <div class="container">
         <div class="row">
@@ -451,14 +466,14 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Footer -->
     <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <span class="copyright">Copyright &copy; Your Website 2018</span>
+            <span class="copyright">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
@@ -496,7 +511,7 @@
     <!-- Portfolio Modals -->
 
     <!-- Modal 1 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+<!--     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
@@ -508,7 +523,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
-                  <!-- Project Details Go Here -->
+                  Project Details Go Here
                   <h2 class="text-uppercase">Project Name</h2>
                   <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                   <img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">
@@ -529,7 +544,7 @@
       </div>
     </div>
 
-    <!-- Modal 2 -->
+    Modal 2
     <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -542,7 +557,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
-                  <!-- Project Details Go Here -->
+                  Project Details Go Here
                   <h2 class="text-uppercase">Project Name</h2>
                   <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                   <img class="img-fluid d-block mx-auto" src="img/portfolio/02-full.jpg" alt="">
@@ -563,7 +578,7 @@
       </div>
     </div>
 
-    <!-- Modal 3 -->
+    Modal 3
     <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -576,7 +591,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
-                  <!-- Project Details Go Here -->
+                  Project Details Go Here
                   <h2 class="text-uppercase">Project Name</h2>
                   <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                   <img class="img-fluid d-block mx-auto" src="img/portfolio/03-full.jpg" alt="">
@@ -597,7 +612,7 @@
       </div>
     </div>
 
-    <!-- Modal 4 -->
+    Modal 4
     <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -610,7 +625,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
-                  <!-- Project Details Go Here -->
+                  Project Details Go Here
                   <h2 class="text-uppercase">Project Name</h2>
                   <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                   <img class="img-fluid d-block mx-auto" src="img/portfolio/04-full.jpg" alt="">
@@ -631,7 +646,7 @@
       </div>
     </div>
 
-    <!-- Modal 5 -->
+    Modal 5
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -644,7 +659,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
-                  <!-- Project Details Go Here -->
+                  Project Details Go Here
                   <h2 class="text-uppercase">Project Name</h2>
                   <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                   <img class="img-fluid d-block mx-auto" src="img/portfolio/05-full.jpg" alt="">
@@ -665,7 +680,7 @@
       </div>
     </div>
 
-    <!-- Modal 6 -->
+    Modal 6
     <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -678,7 +693,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
-                  <!-- Project Details Go Here -->
+                  Project Details Go Here
                   <h2 class="text-uppercase">Project Name</h2>
                   <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                   <img class="img-fluid d-block mx-auto" src="img/portfolio/06-full.jpg" alt="">
@@ -697,7 +712,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Bootstrap core JavaScript -->
 <!-- <script src="vendor/jquery/jquery.min.js"></script>

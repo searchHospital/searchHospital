@@ -53,6 +53,13 @@ section h3.section-subheading {
   font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+section p.section-sub {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   section {
     padding: 150px 0;
@@ -82,6 +89,14 @@ section h3.section-subheading {
 
 .btn-primary:active, .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+}
+
+.search-line {
+    width: 100%;
+    border-top: 1px solid #2d2d2d;
+    border-bottom: 1px solid #2d2d2d;
+    background: #fafafa;
+  	padding: 20px 40px;
 }
 
 ::-moz-selection {
@@ -129,9 +144,9 @@ img::-moz-selection {
 #mainNav .navbar-nav .nav-item .nav-link {
   font-size: 90%;
   font-weight: 400;
-  padding: 0.75em 0;
+  /* padding: 0.75em 0; */
   letter-spacing: 1px;
-  color: white;
+  color: black;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -149,13 +164,13 @@ img::-moz-selection {
     border: none;
     background-color: transparent;
   }
-  #mainNav .navbar-brand {
+  #mainNav.navbar-brand {
     font-size: 1.75em;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
   }
-  #mainNav .navbar-nav .nav-item .nav-link {
+  #mainNav.navbar-nav.nav-item.nav-link {
     padding: 1.1em 1em !important;
   }
   #mainNav.navbar-shrink {
@@ -163,7 +178,7 @@ img::-moz-selection {
     padding-bottom: 0;
     background-color: #212529;
   }
-  #mainNav.navbar-shrink .navbar-brand {
+  #mainNav.navbar-shrink.navbar-brand {
     font-size: 1.25em;
     padding: 12px 0;
   }
@@ -182,12 +197,12 @@ header.masthead {
   background-size: cover;
 }
 
-header.masthead .intro-text {
+header.masthead.intro-text {
   padding-top: 150px;
   padding-bottom: 100px;
 }
 
-header.masthead .intro-text .intro-lead-in {
+header.masthead.intro-text.intro-lead-in {
   font-size: 22px;
   font-style: italic;
   line-height: 22px;
@@ -195,7 +210,7 @@ header.masthead .intro-text .intro-lead-in {
   font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-header.masthead .intro-text .intro-heading {
+header.masthead.intro-text.intro-heading {
   font-size: 50px;
   font-weight: 700;
   line-height: 50px;
@@ -204,18 +219,18 @@ header.masthead .intro-text .intro-heading {
 }
 
 @media (min-width: 768px) {
-  header.masthead .intro-text {
+  header.masthead.intro-text {
     padding-top: 300px;
     padding-bottom: 200px;
   }
-  header.masthead .intro-text .intro-lead-in {
+  header.masthead.intro-text.intro-lead-in {
     font-size: 40px;
     font-style: italic;
     line-height: 40px;
     margin-bottom: 25px;
     font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
-  header.masthead .intro-text .intro-heading {
+  header.masthead.intro-text.intro-heading {
     font-size: 75px;
     font-weight: 700;
     line-height: 75px;
@@ -229,12 +244,12 @@ header.masthead .intro-text .intro-heading {
   text-transform: none;
 }
 
-#portfolio .portfolio-item {
+#portfolio.portfolio-item {
   right: 0;
   margin: 0 0 15px;
 }
 
-#portfolio .portfolio-item .portfolio-link {
+#portfolio.portfolio-item.portfolio-link {
   position: relative;
   display: block;
   max-width: 400px;
@@ -242,7 +257,7 @@ header.masthead .intro-text .intro-heading {
   cursor: pointer;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover {
+#portfolio.portfolio-item.portfolio-link.portfolio-hover {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -253,11 +268,11 @@ header.masthead .intro-text .intro-heading {
   background: rgba(254, 209, 54, 0.9);
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
+#portfolio.portfolio-item.portfolio-link.portfolio-hover:hover {
   opacity: 1;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
+#portfolio.portfolio-item.portfolio-link.portfolio-hover.portfolio-hover-content {
   font-size: 20px;
   position: absolute;
   top: 50%;
@@ -268,16 +283,16 @@ header.masthead .intro-text .intro-heading {
   color: white;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
+#portfolio.portfolio-item.portfolio-link.portfolio-hover.portfolio-hover-content i {
   margin-top: -12px;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h3,
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
+#portfolio.portfolio-item.portfolio-link.portfolio-hover.portfolio-hover-content h3,
+#portfolio.portfolio-item.portfolio-link.portfolio-hover.portfolio-hover-content h4 {
   margin: 0;
 }
 
-#portfolio .portfolio-item .portfolio-caption {
+#portfolio.portfolio-item.portfolio-caption {
   max-width: 400px;
   margin: 0 auto;
   padding: 25px;
@@ -285,12 +300,12 @@ header.masthead .intro-text .intro-heading {
   background-color: #fff;
 }
 
-#portfolio .portfolio-item .portfolio-caption h4 {
+#portfolio.portfolio-item.portfolio-caption h4 {
   margin: 0;
   text-transform: none;
 }
 
-#portfolio .portfolio-item .portfolio-caption p {
+#portfolio.portfolio-item.portfolio-caption p {
   font-size: 16px;
   font-style: italic;
   margin: 0;
@@ -302,7 +317,7 @@ header.masthead .intro-text .intro-heading {
 }
 
 @media (min-width: 767px) {
-  #portfolio .portfolio-item {
+  #portfolio.portfolio-item {
     margin: 0 0 30px;
   }
 }
@@ -311,46 +326,46 @@ header.masthead .intro-text .intro-heading {
   padding-right: 0px !important;
 }
 
-.portfolio-modal .modal-dialog {
+.portfolio-modal.modal-dialog {
   margin: 1rem;
   max-width: 100vw;
 }
 
-.portfolio-modal .modal-content {
+.portfolio-modal.modal-content {
   padding: 100px 0;
   text-align: center;
 }
 
-.portfolio-modal .modal-content h2 {
+.portfolio-modal.modal-content h2 {
   font-size: 3em;
   margin-bottom: 15px;
 }
 
-.portfolio-modal .modal-content p {
+.portfolio-modal.modal-content p {
   margin-bottom: 30px;
 }
 
-.portfolio-modal .modal-content p.item-intro {
+.portfolio-modal.modal-content p.item-intro {
   font-size: 16px;
   font-style: italic;
   margin: 20px 0 30px;
   font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.portfolio-modal .modal-content ul.list-inline {
+.portfolio-modal.modal-content ul.list-inline {
   margin-top: 0;
   margin-bottom: 30px;
 }
 
-.portfolio-modal .modal-content img {
+.portfolio-modal.modal-content img {
   margin-bottom: 30px;
 }
 
-.portfolio-modal .modal-content button {
+.portfolio-modal.modal-content button {
   cursor: pointer;
 }
 
-.portfolio-modal .close-modal {
+.portfolio-modal.close-modal {
   position: absolute;
   top: 25px;
   right: 25px;
