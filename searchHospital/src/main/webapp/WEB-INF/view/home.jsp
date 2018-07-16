@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% response.addHeader("Access-Control-Allow-Origin", "*"); %>
 
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
 
     <meta charset="utf-8">
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Find Helper! - open hospital</title>
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -27,6 +27,70 @@
     <!-- Custom styles for this template -->
     <!-- <link href="css/agency.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
+    
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
+	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+serviceKey+"&numOfRows=100000&Q0=서울특별시&Q1=중구";
+	$(document).ready(function() {
+		$('#getData').click(function() {
+			$.ajax({
+				crossDomain : true,
+				url : apiUrl,
+				type : 'get',
+				dataType : "json" , 
+				beforeSend: function () {
+		              var width = 0;
+		              var height = 0;
+		              var left = 0;
+		              var top = 0;
+
+
+		              width = 50;
+		              height = 50;
+		              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+		              left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+		              if($("#div_ajax_load_image").length != 0) {
+		                     $("#div_ajax_load_image").css({
+		                            "top": top+"px",
+		                            "left": left+"px"
+		                     });
+		                     $("#div_ajax_load_image").show();
+		              }
+		              else {
+		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+		              }
+
+		       },
+		       
+				success : function(data) {
+					console.log("success!");
+					console.log(apiUrl);
+					 $("#div_ajax_load_image").hide();
+					 var myItem = data.response.body.items.item;
+	                 
+		                for(var i=0; myItem.length; i++){
+		                    var output = '';
+		                    console.log(myItem.length);
+		                    output += '<h3>'+ i + '번째 병원' +'</h3>';
+		                    output += '<h4>'+myItem[i].dutyName+'</h4>';
+		                    output += '<h4>'+myItem[i].dutyAddr+'</h4>';
+		                    output += '<h4>'+myItem[i].dutyTel1+'</h4>';
+		                    document.getElementById('listhospital').innerHTML += output;
+		                   /*  $("#listhospital").html(output); */
+		                   
+		                }
+		                
+				},
+				error : function(e) {
+					alert("error!");
+					console.log(apiUrl);
+				}
+			});
+		});
+	});
+</script>
 
   </head>
 
@@ -73,20 +137,7 @@
         </div>
       </div>
     </header> -->
- 
- 
- <!-- search -->
- 	<section id="search">
- 	<div class="search body">
- 	<div class="search-line">
- 	<div class="search filter">
- 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
- 	</div>
- 	</div>
- 	
- 	</div>
- 	</section>
- <!--    Services -->
+  <!--    Services -->
     <section id="services">
       <div class="container">
         <div class="row">
@@ -95,7 +146,7 @@
             <h3 class="section-subheading text-muted">Find an open hospital! <br> Where you want or your surroundings.</h3>
           </div>
         </div>
-        <div class="row text-center">
+<!--         <div class="row text-center">
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
@@ -120,9 +171,24 @@
             <h4 class="service-heading">Web Security</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
+ 
+ <!-- search -->
+ 	<section id="search">
+ 	<div class="search body">
+ 	<div class="search-line">
+ 	<div class="search filter">
+ 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
+ 	<input type="button" id="getData" value="출력" />
+ 	<div id="listhospital"></div>
+ 	</div>
+ 	</div>
+ 	
+ 	</div>
+ 	</section>
+
     
 <!-- 
     Portfolio Grid
