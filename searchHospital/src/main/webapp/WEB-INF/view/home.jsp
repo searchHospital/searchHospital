@@ -180,7 +180,7 @@
  	<div class="search body">
  	<div class="search-line">
  	<div class="search filter">
- 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
+ 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p>
  	<input type="button" id="getData" value="출력" />
  	<div id="listhospital"></div>
  	</div>
