@@ -16,7 +16,7 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value="/#services",method=RequestMethod.GET)
+	@RequestMapping(value="/services",method=RequestMethod.GET)
 	public String map(Model model) {
 //		model.addAttribute("title", "Spring Boot View Demo");
 //      model.addAttribute("time", new Date().toString());
