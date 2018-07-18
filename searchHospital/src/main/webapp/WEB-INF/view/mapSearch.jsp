@@ -41,7 +41,8 @@
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
-	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+serviceKey+"&numOfRows=100000&Q0=서울특별시&Q1=중구";
+	//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+serviceKey+"&numOfRows=100000&Q0=서울특별시&Q1=중구";
+	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?serviceKey="+serviceKey+"&WGS84_LON=126.570667&WGS84_LAT=33.450701&numOfRows=20";
 	$(document).ready(function() {
 		$('#getData').click(function() {
 			$.ajax({
@@ -49,7 +50,7 @@
 				url : apiUrl,
 				type : 'get',
 				dataType : "json" , 
-				beforeSend: function () {
+				beforeSend: function () { //로딩표시
 		              var width = 0;
 		              var height = 0;
 		              var left = 0;
@@ -101,6 +102,8 @@
 		});
 	});
 </script>
+
+
 
 </head>
 
@@ -155,6 +158,8 @@
 						<div class="search filter">
 							<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
 							<input type="button" id="getData" value="출력" />
+							<div id="map" style="width:500px;height:400px;"></div>
+
 							<div id="listhospital"></div>
 						</div>
 					</div>
@@ -206,7 +211,78 @@
 			<script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
 			<script
 				src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script>
+
+
+			
+			<script type="text/javascript"
+				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9266c0989eff5725cf55a5ad10b485e3"></script>
 				
 				
-				</body>
+			<script> //지도 생성 및 현재 위치 인식
+				var container = document.getElementById('map'); //지도생성
+				var options = {
+					center : new daum.maps.LatLng(33.450701, 126.570667),
+					level : 3
+				};
+
+				var map = new daum.maps.Map(container, options);
+				
+				if(navigator.geolocation){ //현재 위치 인식
+					navigator.geolocation.getCurrentPosition(function(position){
+						var lat=position.coords.latitude, 
+						lon=position.coords.longitude;
+						console.log(lat);
+						
+						var locPosition=new daum.maps.LatLng(lat,lon);
+						justMarker(locPosition); 
+
+					});
+				}
+				else{
+					var locPosition=new daum.maps.LatLng(33.450701, 126.570667),
+					message='일시적으로 내 위치를 확인할 수 없습니다.'
+					
+					displayMarker(locPosition, message);
+				}
+				
+				
+				//마커와 인포윈도우 표시하는 함수
+				function displayMarker(locPosition, message){
+					var marker=new daum.maps.Marker({
+						map:map,
+						position:locPosition
+						
+					});
+					
+					var iwContent=message, //인포윈도우에 표시할 내용
+					iwRemoveable=true;
+					
+					//인포윈도우 생성
+					var infowindow=new daum.maps.InfoWindow({
+						content:iwContent,
+						removeable:iwRemoveable
+					});
+					
+					//인포윈도우를 마커 위에 표시
+					infowindow.open(map,marker);
+					
+					//지도 중심좌표를 해당위치로 변경
+					map.setCenter(locPosition);
+				}
+				
+				//마커만 표시하는 함수
+				function justMarker(locPosition){
+					var markerPosition=locPosition;
+					var marker=new daum.maps.Marker({
+						position:markerPosition
+					});
+					
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);
+					map.setCenter(locPosition);
+				}
+			</script>
+			
+			
+			</body>
 </html>
