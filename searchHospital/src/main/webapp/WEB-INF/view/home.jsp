@@ -31,12 +31,21 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
-	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+serviceKey+"&numOfRows=100000&Q0=서울특별시&Q1=중구";
+	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey+"&numOfRows=100000";
 	$(document).ready(function() {
+		
 		$('#getData').click(function() {
+			
+			document.getElementById('listhospital').innerHTML ="";
+			var sido = $("#sido option:selected").val();
+			var sigungu = $("#sigungu option:selected").val();
+			
+			console.log(sido);
+			if(sido=="") { alert("'시/도'를 선택해주세요."); return false;}
+			
 			$.ajax({
 				crossDomain : true,
-				url : apiUrl,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu,
 				type : 'get',
 				dataType : "json" , 
 				beforeSend: function () {
@@ -44,7 +53,6 @@
 		              var height = 0;
 		              var left = 0;
 		              var top = 0;
-
 
 		              width = 50;
 		              height = 50;
@@ -61,25 +69,46 @@
 		              else {
 		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 		              }
-
 		       },
 		       
 				success : function(data) {
 					console.log("success!");
 					console.log(apiUrl);
 					 $("#div_ajax_load_image").hide();
+					 
 					 var myItem = data.response.body.items.item;
-	                 
+					 var myItem_address;
+					 var myItem_name;
+					 
+					 var isOpen;
+						
+					var searchAdd = $("#detailAdd").val();
+					var searchName = $("#search_name").val();
+					
+					console.log(myItem.length);
+					
 		                for(var i=0; myItem.length; i++){
+		                	
+		            		if(nowOpen(myItem[i])==true) isOpen="ON" ;
+		            		else isOpen="OFF";
+		            		
+		            		console.log(isOpen);
+		            		
+		                	myItem_address = JSON.stringify(myItem[i].dutyAddr);
+		                	myItem_name = JSON.stringify(myItem[i].dutyName);
+							
+							if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
+								if(myItem_name.indexOf(searchName)!=-1||searchName==null){
 		                    var output = '';
-		                    console.log(myItem.length);
+		                   
 		                    output += '<h3>'+ i + '번째 병원' +'</h3>';
 		                    output += '<h4>'+myItem[i].dutyName+'</h4>';
 		                    output += '<h4>'+myItem[i].dutyAddr+'</h4>';
 		                    output += '<h4>'+myItem[i].dutyTel1+'</h4>';
+		                    output += '<p>'+isOpen+'</p>';
 		                    document.getElementById('listhospital').innerHTML += output;
-		                   /*  $("#listhospital").html(output); */
-		                   
+								}
+		                }
 		                }
 		                
 				},
@@ -89,7 +118,86 @@
 				}
 			});
 		});
+		
+		var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
+		var area1 = ["전체 선택","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
+		var area2 = ["전체 선택","계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
+		var area3 = ["전체 선택","대덕구","동구","서구","유성구","중구"];
+		var area4 = ["전체 선택","광산구","남구","동구","북구","서구"];
+		var area5 = ["전체 선택","남구","달서구","동구","북구","서구","수성구","중구","달성군"];
+		var area6 = ["전체 선택","남구","동구","북구","중구","울주군"];
+		var area7 = ["전체 선택","강서구","금정구","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구","기장군"];
+		var area8 = ["전체 선택","고양시","과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시","수원시","시흥시","안산시","안성시","안양시","양주시","오산시","용인시","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시","가평군","양평군","여주군","연천군"];
+		var area9 = ["전체 선택","강릉시","동해시","삼척시","속초시","원주시","춘천시","태백시","고성군","양구군","양양군","영월군","인제군","정선군","철원군","평창군","홍천군","화천군","횡성군"];
+		var area10 = ["전체 선택","제천시","청주시","충주시","괴산군","단양군","보은군","영동군","옥천군","음성군","증평군","진천군","청원군"];
+		var area11 = ["전체 선택","계룡시","공주시","논산시","보령시","서산시","아산시","천안시","금산군","당진군","부여군","서천군","연기군","예산군","청양군","태안군","홍성군"];
+		var area12 = ["전체 선택","군산시","김제시","남원시","익산시","전주시","정읍시","고창군","무주군","부안군","순창군","완주군","임실군","장수군","진안군"];
+		var area13 = ["전체 선택","광양시","나주시","목포시","순천시","여수시","강진군","고흥군","곡성군","구례군","담양군","무안군","보성군","신안군","영광군","영암군","완도군","장성군","장흥군","진도군","함평군","해남군","화순군"];
+		var area14 = ["전체 선택","경산시","경주시","구미시","김천시","문경시","상주시","안동시","영주시","영천시","포항시","고령군","군위군","봉화군","성주군","영덕군","영양군","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군"];
+		var area15 = ["전체 선택","거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
+		var area16 = ["전체 선택","서귀포시","제주시","남제주군","북제주군"];
+		
+		// 시/도 선택 박스 초기화
+
+		$("#sido").each(function() {
+		$sido = $(this);
+		$.each(eval(area0), function() {
+			if(this=="시/도 선택"){				
+				 $sido.append("<option value=''>"+this+"</option>");}
+			 else $sido.append("<option value='"+this+"'>"+this+"</option>");
+		});
+		$sido.next().append("<option value=''>구/군 선택</option>");
+		});
+
+		// 시/도 선택시 구/군 설정
+		$("#sido").change(function() {
+		var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
+		var $sigungu = $(this).next(); // 선택영역 군구 객체
+		$("option",$sigungu).remove(); // 구군 초기화
+
+		if(area == "area0")
+		 $sigungu.append("<option value=''>구/군 선택</option>");
+		else {
+		 $.each(eval(area), function() {
+			 if(this=="전체 선택"){				
+				 $sigungu.append("<option value=''>"+this+"</option>");}
+			 else $sigungu.append("<option value='"+this+"'>"+this+"</option>");
+		 });
+		}
+		});	
 	});
+	
+	// 현재 진료중인지 check
+	function nowOpen(json){
+		//document.getElementById('search').innerHTML += "<P>The time is ${hour}:${minute}. date is ${today} </P>";
+		
+		var hos_open, hos_close;
+		var hos_open_hour, hos_open_minute;
+		var hos_close_hour, hos_close_minute;
+		
+		hos_open = JSON.stringify(json.dutyTime${today}s);
+		hos_close = JSON.stringify(json.dutyTime${today}c);
+		
+		hos_open_hour = hos_open.substring(1,3);
+		hos_open_minute = hos_open.substring(3,5);
+		
+		hos_close_hour = hos_close.substring(0,2);
+		hos_close_minute = hos_close.substring(2,4);
+		
+		/* console.log("open - "+hos_open_hour+":"+hos_open_minute);
+		console.log("close - "+hos_close_hour+":"+hos_close_minute); */
+		
+		if("${hour}">hos_open_hour&&"${hour}"<hos_close_hour) return true;
+		else if("${hour}"==hos_open_hour) {
+			if("${minute}">=hos_open_minute) return true;
+			else  return false;
+			}
+		else if("${hour}"==hos_close_hour) {
+			if("${minute}"<=hos_close_minute) return true;
+			else  return false;
+			}
+		
+	}
 </script>
 
   </head>
@@ -180,9 +288,18 @@
  	<div class="search body">
  	<div class="search-line">
  	<div class="search filter">
- 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p>
- 	<input type="button" id="getData" value="출력" />
+ 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p><br>
+ 	
+ 	<select id="sido"></select>
+	<select id="sigungu"></select>
+
+	<input type="text" id="detailAdd" placeholder="상세주소입력">
+	<input type="button" id="getData" value="검색" /> <br>
+	
+	<input type="text" id="search_name" placeholder="병원명 검색">
+	
  	<div id="listhospital"></div>
+ 	
  	</div>
  	</div>
  	
