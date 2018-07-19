@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" class="first">
 	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey+"&numOfRows=100000";
 	$(document).ready(function() {
@@ -87,30 +87,37 @@
 					
 					console.log(myItem.length);
 					
-		                for(var i=0; myItem.length; i++){
+		                for(var i=0; i<myItem.length; i++){
 		                	
-		            		if(nowOpen(myItem[i])==true) isOpen="ON" ;
-		            		else isOpen="OFF";
+		            		/* if(nowOpen(myItem[i])==true) isOpen="on" ;
+		            		else isOpen="off"; */
 		            		
-		            		console.log(isOpen);
+		            		isOpen = nowOpen(myItem[i]);
+		            		
+		            		/* console.log(isOpen); */
 		            		
 		                	myItem_address = JSON.stringify(myItem[i].dutyAddr);
 		                	myItem_name = JSON.stringify(myItem[i].dutyName);
 							
 							if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
 								if(myItem_name.indexOf(searchName)!=-1||searchName==null){
-		                    var output = '';
-		                   
-		                    output += '<h3>'+ i + '번째 병원' +'</h3>';
-		                    output += '<h4>'+myItem[i].dutyName+'</h4>';
-		                    output += '<h4>'+myItem[i].dutyAddr+'</h4>';
-		                    output += '<h4>'+myItem[i].dutyTel1+'</h4>';
-		                    output += '<p>'+isOpen+'</p>';
-		                    document.getElementById('listhospital').innerHTML += output;
+									if(($('#all_on_btn').val()=="on"&&isOpen=="on")||$('#all_on_btn').val()=="all"){
+										  var output = '';
+						                    output += '<h3>'+ i + '번째 병원' +'</h3>';
+						                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].dutyName+'\',\''+sido+'\',\''+sigungu+'\')">'+myItem[i].dutyName+'</a>';
+						                    output += '<h4>'+myItem[i].dutyAddr+'</h4>';
+						                    output += '<h4>'+myItem[i].dutyTel1+'</h4>';
+						                    output += '<p>'+isOpen+'</p>';
+						                    document.getElementById('listhospital').innerHTML += output;             
+									}
 								}
+		                }	
 		                }
-		                }
-		                
+						/* 상세페이지 */
+		        		$('.btn-example').click(function(){
+		        	        var $href = $(this).attr('href');
+		        	        layer_popup($href);
+		        	    }); 
 				},
 				error : function(e) {
 					alert("error!");
@@ -165,21 +172,130 @@
 		 });
 		}
 		});	
+		
+		/* ALL - ON 버튼 toggle 기능 */
+		$('#all_on_btn').click(function(){
+			if($('#all_on_btn').val()=="all"){
+				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/on.jpg')
+				$('#all_on_btn').attr('value','on')}
+			else if($('#all_on_btn').val()=="on"){
+				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/all.jpg')
+				$('#all_on_btn').attr('value','all')}
+			
+			console.log($('#all_on_btn').val());
+		});
+		
+		/* 상세 페이지 팝업 */
+	    function layer_popup(el){
+	        var $el = $(el);        //레이어의 id를 $el 변수에 저장
+	        var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+	        isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+	        var $elWidth = ~~($el.outerWidth()),
+	            $elHeight = ~~($el.outerHeight()),
+	            docWidth = $(document).width(),
+	            docHeight = $(document).height();
+
+	        // 화면의 중앙에 레이어를 띄운다.
+	        if ($elHeight < docHeight || $elWidth < docWidth) {
+	            $el.css({
+	                marginTop: -$elHeight /2,
+	                marginLeft: -$elWidth/2
+	            })
+	        } else {
+	            $el.css({top: 0, left: 0});
+	        }
+
+	        $el.find('a.btn-layerClose').click(function(){
+	            isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+	            return false;
+	        });
+
+	        $('.layer .dimBg').click(function(){
+	            $('.dim-layer').fadeOut();
+	            return false;
+	        });
+	       
+	       }
 	});
+	
+	function hospitalDetail(hosName,sido,sigungu){
+		$.ajax({
+			crossDomain : true,
+			url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+hosName,
+			type : 'get',
+			dataType : "json",
+			success: function(data){
+				console.log("상세정보 api 불러오기 success!!");
+				console.log(apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+hosName);
+				
+				 var hosItem = data.response.body.items.item;
+				 
+				 var contents = '';
+				 var hos_open;
+				 var hos_close;
+				 
+			        contents += '<h4>'+hosItem.dutyName+'</h4><br>';
+			        contents += '<p>'+hosItem.dutyAddr+'</p>';
+			        contents += '<p>'+hosItem.dutyTel1+'</p>';
+			        contents += '<p>'+hosItem.dutyEmclsName+'</p>';
+			        
+			        for(var i=1;i<=7;i++){
+			        	contents += '<p>'+i+'요일 </p><br>';
+			        if((hosItem.dutyTime+i+s)==null) {console.log("진료 시작 시간 정보 없음"); contents += '<p> open - 진료 시간 정보 없음 </p>';}
+					if((hosItem.dutyTime+i+c)==null) {console.log("진료 종료 시간 정보 없음"); contents += '<p>	close - 진료 시간 정보 없음 </p>';}
+					
+					hos_open = JSON.stringify(hosItem.dutyTime+i+s);
+					hos_close = JSON.stringify(hosItem.dutyTime+i+c);
+					
+					hos_open = hos_open.replace("\"", "");
+					hos_close = hos_close.replace("\"", "");
+					 
+					console.log("open - "+hos_open);
+					console.log("close - "+hos_close);
+					
+					contents += '<p>'+"open - "+hos_open+"	close - "+hos_close+'</p>';
+			        }
+					
+			        document.getElementById('hopitalDetail').innerHTML += contents;
+			},
+		error : function(e){
+			console.log("상세정보 api 불러오기 error!!");
+		}
+		});
+	}
 	
 	// 현재 진료중인지 check
 	function nowOpen(json){
 		//document.getElementById('search').innerHTML += "<P>The time is ${hour}:${minute}. date is ${today} </P>";
+		var today = "${today}";
+		//var hour = "${hour}";
+		var hour = 9;
+		var minute = "${minute}";
 		
+/* 		console.log("today : " + today);
+		console.log("hour : " + hour);
+		console.log("minute : " + minute); */
+
 		var hos_open, hos_close;
 		var hos_open_hour, hos_open_minute;
 		var hos_close_hour, hos_close_minute;
 		
+		if(json.dutyTime${today}s==null) {console.log("진료 시작 시간 정보 없음"); return "진료 시작 시간 정보 없음";}
+		if(json.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); return "진료 종료 시간 정보 없음";}
+		
 		hos_open = JSON.stringify(json.dutyTime${today}s);
 		hos_close = JSON.stringify(json.dutyTime${today}c);
 		
-		hos_open_hour = hos_open.substring(1,3);
-		hos_open_minute = hos_open.substring(3,5);
+		hos_open = hos_open.replace("\"", "");
+		hos_close = hos_close.replace("\"", "");
+		 
+		/* console.log("open - "+hos_open);
+		console.log("close - "+hos_close); */
+		
+		hos_open_hour = hos_open.substring(0,2);
+		hos_open_minute = hos_open.substring(2,4);
 		
 		hos_close_hour = hos_close.substring(0,2);
 		hos_close_minute = hos_close.substring(2,4);
@@ -187,16 +303,16 @@
 		/* console.log("open - "+hos_open_hour+":"+hos_open_minute);
 		console.log("close - "+hos_close_hour+":"+hos_close_minute); */
 		
-		if("${hour}">hos_open_hour&&"${hour}"<hos_close_hour) return true;
-		else if("${hour}"==hos_open_hour) {
-			if("${minute}">=hos_open_minute) return true;
-			else  return false;
-			}
-		else if("${hour}"==hos_close_hour) {
-			if("${minute}"<=hos_close_minute) return true;
-			else  return false;
-			}
-		
+		if(hour>hos_open_hour&&hour<hos_close_hour) {return "on";}
+		else if(hour==hos_open_hour){
+			if(minute>=hos_open_minute) return "on";
+			else return "off";
+		}
+		else if(hour==hos_close_hour){
+			if(minute<=hos_close_minute) return "on";
+			else return "off";
+		}
+		else return "off";
 	}
 </script>
 
@@ -293,10 +409,14 @@
  	<select id="sido"></select>
 	<select id="sigungu"></select>
 
-	<input type="text" id="detailAdd" placeholder="상세주소입력">
-	<input type="button" id="getData" value="검색" /> <br>
-	
-	<input type="text" id="search_name" placeholder="병원명 검색">
+	<input type="text" id="detailAdd" placeholder="상세주소입력"> <br>
+	<select id="subject">
+	<option value="">전체 선택</option>
+	</select>
+	<input type="text" id="search_name" placeholder="병원명을 입력하세요.">
+	<input type="button" id="getData" value="검색" /><br>
+	<input id="all_on_btn" type="image" value="all" src="${pageContext.request.contextPath}/resources/img/all.jpg">
+	<%-- <input id="on_btn" type="image" value="on_off" src="${pageContext.request.contextPath}/resources/img/on_gray.jpg"> --%>
 	
  	<div id="listhospital"></div>
  	
@@ -305,6 +425,21 @@
  	
  	</div>
  	</section>
+
+<div class="dim-layer">
+    <div class="dimBg"></div>
+    <div id="layer2" class="pop-layer">
+        <div class="pop-container">
+            <div class="pop-conts">
+            <div id="hopitalDetail"></div>
+                <div class="btn-r">
+                    <a href="#" class="btn-layerClose">Close</a>
+                </div>
+                <!--// content-->
+            </div>
+        </div>
+    </div>
+</div>
 
     
 <!-- 
