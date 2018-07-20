@@ -227,14 +227,13 @@
 
 		       },
 		       
-				success : function(data) {
-					console.log("success!");
-					console.log(apiUrl);
+				success : function (data) {
+					//console.log("success!");
+					//console.log(apiUrl);
 					 $("#div_ajax_load_image").hide();
 					 var myItem = data.response.body.items.item;
 					 
 					 var locPosition=new daum.maps.LatLng(lat,lon);
-					 console.log(lat);
 					 var container = document.getElementById('map');
 	    				var options = {
 	    					center : new daum.maps.LatLng(lat, lon),
@@ -244,12 +243,36 @@
 	    				//지도 생성
 	    				var map = new daum.maps.Map(container, options);
 	    				nowMarker(locPosition);
-	    				
- 	    				if($('input:checkbox[id="open"]').is(":checked") == true){
- 	    					openHospital();
-	    				} 
+	    			
+ 
  	    				
 		                for(var i=0;i<myItem.length; i++){
+
+	    						var hoName=myItem[i].dutyName;
+			                    var hoLat=myItem[i].latitude;
+			                    var hoLng=myItem[i].longitude;
+			                    
+	 	    				if($('input:checkbox[id="open"]').is(":checked") == true){
+	 	    					var isOpen=openHospital(myItem[i].hpid);
+	 	    					console.log(isOpen);
+	 	    					if(isOpen=="on"){
+	 	    						var output = '';
+	 			                    
+	 			                    
+	 			                    output += '<h3>'+ i + '번째 병원' +'</h3>';
+	 			                    output += '<h4>'+hoName+myItem[i].distance+"km"+'</h4>';
+	 			                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
+	 			                    output += '<h5>'+myItem[i].dutyTel1+'</h4>';
+	 			                    
+	 			                    document.getElementById('listhospital').innerHTML += output;
+	 			                   /*  $("#listhospital").html(output); */
+	 			                   
+	 			          
+	 			                   var hoPosition=new daum.maps.LatLng(hoLat,hoLng);
+	 			                   justMarker(hoPosition,hoLat,hoLng);
+	 	    					}
+		    				}
+	 	    				else{
 		                    var output = '';
 		                    console.log(myItem.length);
 		                    
@@ -269,6 +292,7 @@
 		                   var hoPosition=new daum.maps.LatLng(hoLat,hoLng);
 		                   justMarker(hoPosition,hoLat,hoLng);
 		                   
+		                }
 		                }
 		             // 마커가 지도 위에 표시되도록 설정합니다
 						map.setCenter(locPosition);
@@ -330,6 +354,8 @@
 	    				        infowindow.close();
 	    				    };
 	    				}
+	    				
+
  /*    						var lat=position.coords.latitude, 
     						lon=position.coords.longitude;
     					
@@ -345,11 +371,98 @@
 			});
 		});
 	});
-			function openHospital(){
+			
+			
+			// 현재 진료중인지 check
+			function openHospital(hpID){
+				//document.getElementById('search').innerHTML += "<P>The time is ${hour}:${minute}. date is ${today} </P>";
 				
+				var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
+				var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+hpID;
+				var today = "${today}";
+				//var hour = "${hour}";
+				var hour = 9;
+				var minute = "${minute}";
+				
+		/* 		console.log("today : " + today);
+				console.log("hour : " + hour);
+				console.log("minute : " + minute); */
 
-                document.getElementById('listhospital').innerHTML = "안녕";
+				var hos_open, hos_close;
+				var hos_open_hour, hos_open_minute;
+				var hos_close_hour, hos_close_minute;
+				
+				$.ajax({
+					crossDomain:true,
+					url:apiUrl,
+					type:'get',
+					dataType:"json",
+					async:false,
+					beforeSend: function () { //로딩표시
+			              var width = 0;
+			              var height = 0;
+			              var left = 0;
+			              var top = 0;
+
+
+			              width = 50;
+			              height = 50;
+			              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+			              left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+			              if($("#div_ajax_load_image").length != 0) {
+			                     $("#div_ajax_load_image").css({
+			                            "top": top+"px",
+			                            "left": left+"px"
+			                     });
+			                     $("#div_ajax_load_image").show();
+			              }
+			              else {
+			                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+			              }
+
+			       },
+					success: function(data){
+						 $("#div_ajax_load_image").hide();
+						 
+						 var openHo = data.response.body.items.item;
+						 console.log(apiUrl);
+				if(openHo.dutyTime${today}s==null) {console.log(openHo.dutyTime${today}s); return "off";}
+				if(openHo.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); return "off";}
+				
+				hos_open = JSON.stringify(openHo.dutyTime${today}s);
+				hos_close = JSON.stringify(openHo.dutyTime${today}c);
+				
+				hos_open = hos_open.replace("\"", "");
+				hos_close = hos_close.replace("\"", "");
+				 
+				/* console.log("open - "+hos_open);
+				console.log("close - "+hos_close); */
+				
+				hos_open_hour = hos_open.substring(0,2);
+				hos_open_minute = hos_open.substring(2,4);
+				
+				hos_close_hour = hos_close.substring(0,2);
+				hos_close_minute = hos_close.substring(2,4);
+				
+				/* console.log("open - "+hos_open_hour+":"+hos_open_minute);
+				console.log("close - "+hos_close_hour+":"+hos_close_minute); */
+				
+				
+				if(hour>hos_open_hour&&hour<hos_close_hour) {return "on";}
+				else if(hour==hos_open_hour){
+					if(minute>=hos_open_minute) return "on";
+					else return "off";
+				}
+				else if(hour==hos_close_hour){
+					if(minute<=hos_close_minute) return "on";
+					else return "off";
+				}
+				else return "off";
+					}
+				});
 			}
+			
 </script>
 			
 

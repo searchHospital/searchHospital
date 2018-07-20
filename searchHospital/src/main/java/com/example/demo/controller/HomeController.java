@@ -48,6 +48,21 @@ public class HomeController {
 	public String map(Model model) {
 //		model.addAttribute("title", "Spring Boot View Demo");
 //      model.addAttribute("time", new Date().toString());
+		Calendar cal = Calendar.getInstance(); 
+
+		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int minute = cal.get(Calendar.MINUTE);
+		
+		//String today = weekDay[num]; 
+		
+		//추가한 부분
+		if(num==0) num=7;
+		
+		model.addAttribute("hour",hour);
+		model.addAttribute("minute",minute);
+		model.addAttribute("today", num );
+		
 		return "mapSearch";
 	}
 }
