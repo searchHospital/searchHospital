@@ -87,8 +87,9 @@
 					
 					console.log(myItem.length);
 					
+					if(myItem.length==null) {document.getElementById('listhospital').innerHTML += "검색결과가 없습니다."; return false;}
+					
 		                for(var i=0; i<myItem.length; i++){
-		                	
 		            		/* if(nowOpen(myItem[i])==true) isOpen="on" ;
 		            		else isOpen="off"; */
 		            		
@@ -117,6 +118,7 @@
 		        		$('.btn-example').click(function(){
 		        	        var $href = $(this).attr('href');
 		        	        layer_popup($href);
+		        	        $("#hopitalDetail").empty();
 		        	    }); 
 				},
 				error : function(e) {
@@ -200,8 +202,6 @@
 	        // 화면의 중앙에 레이어를 띄운다.
 	        if ($elHeight < docHeight || $elWidth < docWidth) {
 	            $el.css({
-	                marginTop: -$elHeight /2,
-	                marginLeft: -$elWidth/2
 	            })
 	        } else {
 	            $el.css({top: 0, left: 0});
@@ -221,6 +221,10 @@
 	});
 	
 	function hospitalDetail(hosName,sido,sigungu){
+		console.log(hosName);
+		hosName = hosName.replace(/ /gi, "");
+		console.log(hosName);
+		
 		$.ajax({
 			crossDomain : true,
 			url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+hosName,
@@ -235,19 +239,23 @@
 				 var contents = '';
 				 var hos_open;
 				 var hos_close;
-				 
-			        contents += '<h4>'+hosItem.dutyName+'</h4><br>';
+				 var hos_open_hour, hos_open_minute;
+				 var hos_close_hour, hos_close_minute;
+				 var day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","공휴일"];
+			        contents += '<h4>'+hosItem.dutyName+'</h4>';
 			        contents += '<p>'+hosItem.dutyAddr+'</p>';
 			        contents += '<p>'+hosItem.dutyTel1+'</p>';
 			        contents += '<p>'+hosItem.dutyEmclsName+'</p>';
 			        
-			        for(var i=1;i<=7;i++){
-			        	contents += '<p>'+i+'요일 </p><br>';
-			        if((hosItem.dutyTime+i+s)==null) {console.log("진료 시작 시간 정보 없음"); contents += '<p> open - 진료 시간 정보 없음 </p>';}
-					if((hosItem.dutyTime+i+c)==null) {console.log("진료 종료 시간 정보 없음"); contents += '<p>	close - 진료 시간 정보 없음 </p>';}
-					
-					hos_open = JSON.stringify(hosItem.dutyTime+i+s);
-					hos_close = JSON.stringify(hosItem.dutyTime+i+c);
+			        for(var i=1;i<=8;i++){
+			        	contents += '<p>'+day[i-1];
+			        	var search_open = "dutyTime"+i+"s";
+			        	var search_close = "dutyTime"+i+"s";
+			        if(hosItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); contents += ' Open - 진료 시간 정보 없음 </p>';}
+			        else if(hosItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); contents += ' Close - 진료 시간 정보 없음 </p>';}
+			        else{
+					hos_open = JSON.stringify(hosItem[search_open]);
+					hos_close = JSON.stringify(hosItem[search_close]);
 					
 					hos_open = hos_open.replace("\"", "");
 					hos_close = hos_close.replace("\"", "");
@@ -255,9 +263,15 @@
 					console.log("open - "+hos_open);
 					console.log("close - "+hos_close);
 					
-					contents += '<p>'+"open - "+hos_open+"	close - "+hos_close+'</p>';
-			        }
+					hos_open_hour = hos_open.substring(0,2);
+					hos_open_minute = hos_open.substring(2,4);
 					
+					hos_close_hour = hos_close.substring(0,2);
+					hos_close_minute = hos_close.substring(2,4);
+					
+					contents += " Open - "+hos_open_hour+":"+hos_open_minute+" Close - "+hos_close_hour+":"+hos_close_minute+'</p>';
+			        }
+			        }
 			        document.getElementById('hopitalDetail').innerHTML += contents;
 			},
 		error : function(e){
@@ -429,12 +443,10 @@
 <div class="dim-layer">
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">
+    <div class="btn-r"><a href="#" class="btn-layerClose">Close</a></div>
         <div class="pop-container">
             <div class="pop-conts">
-            <div id="hopitalDetail"></div>
-                <div class="btn-r">
-                    <a href="#" class="btn-layerClose">Close</a>
-                </div>
+            <div id="hopitalDetail"></div> 
                 <!--// content-->
             </div>
         </div>
