@@ -62,7 +62,7 @@ section p.section-sub {
 
 @media (min-width: 768px) {
   section {
-    padding: 150px 0;
+    padding: 150px 0 0;
   }
 }
 
@@ -335,8 +335,8 @@ header.masthead.intro-text.intro-heading {
   width: 100%;
   margin: 10px 0 20px;
   padding-top: 10px;
-  border-top: 1px solid #DDD;
   text-align: right;
+ /*  border-top: 1px solid #DDD; */
 }
 
 .pop-layer {
@@ -380,18 +380,35 @@ header.masthead.intro-text.intro-heading {
 a.btn-layerClose {
   display: inline-block;
   height: 25px;
+  padding: 0 14px 0;/* 
+  border: 1px solid #fff;
+  background-color: #fff;
+  font-size: 13px;
+  color: #fff; 
+  line-height: 25px;
+  */
+}
+
+a.btn-layerDetail{
+  display: inline-block;
+  height: 25px;
   padding: 0 14px 0;
   border: 1px solid #304a8a;
   background-color: #3f5a9d;
   font-size: 13px;
   color: #fff;
   line-height: 25px;
-}
+} */
 
-a.btn-layerClose:hover {
+a.btn-layerClose:Detail{
   border: 1px solid #091940;
   background-color: #1f326a;
   color: #fff;
+} */
+
+.detailInfo{
+	background-color: #ff8080;
+	padding-left:50px;
 }
 
 .portfolio-modal {
@@ -783,4 +800,18 @@ ul.social-buttons li a {
 
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
   background-color: #fed136;
+}
+
+.detailInfo-top{
+	padding-top : 10px;
+	padding-bottom : 10px;
+	display:grid;
+	grid-template-columns:repeat(2,1fr);
+	grid-template-columns:40% 60%
+}
+.map{
+	grid-column: 1 / 2;
+}
+.basicInfo{
+	grid-column: 2 / 3;
 }
