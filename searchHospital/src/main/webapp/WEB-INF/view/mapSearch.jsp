@@ -40,7 +40,22 @@
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
-
+  <style>
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;white-space:normal !important;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 13px 0 13px;height: 75px;}
+    .txt_address {word-break:break-all;white-space:normal !important;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+</style>
 
 </head>
 
@@ -98,8 +113,8 @@
 							<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
 							
 							<input type="checkbox" id=open> 현재 진료가능한 병원만 보기
-							<input type="button" id="getData" value="출력" />
-							<div id="map" style="width:900px;height:700px;" ></div>
+							<input type="button" id="getData" value="검색" />
+							<div id="map" style="width:900px;height:700px;" ></div> 
 
 							<div id="listhospital"></div>
 						</div>
@@ -113,6 +128,8 @@
 			<script type="text/javascript">
 			
 			var lat,lon;
+			
+			var overlay;
 			
 			$(document).ready(function() {
             //지도 생성 및 현재 위치 인식
@@ -190,19 +207,21 @@
 			}
 			
 	
+			
 		$('#getData').click(function() {
 			
 			var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 			//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+serviceKey+"&numOfRows=100000&Q0=서울특별시&Q1=중구";
 			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?serviceKey="+serviceKey+"&WGS84_LON="+lon+"&WGS84_LAT="+lat+"&numOfRows=30";
 
-			
+			 $("#listhospital").empty();
 			$.ajax({
 				crossDomain : true,
 				url : apiUrl,
 				type : 'get',
 				dataType : "json" , 
-				beforeSend: function () { //로딩표시
+				//로딩표시
+				beforeSend: function () { 
 		              var width = 0;
 		              var height = 0;
 		              var left = 0;
@@ -247,18 +266,41 @@
  
  	    				
 		                for(var i=0;i<myItem.length; i++){
+    						var hoName=myItem[i].dutyName;
+		                    var hoLat=myItem[i].latitude;
+		                    var hoLng=myItem[i].longitude;
 
-	    						var hoName=myItem[i].dutyName;
-			                    var hoLat=myItem[i].latitude;
-			                    var hoLng=myItem[i].longitude;
+			                   var hoPosition=new daum.maps.LatLng(hoLat,hoLng);
+ 				                   var content = '<div class="wrap">' + 
+				                   '    <div class="info">' + 
+				                   '        <div class="title">' + 
+				                   				hoName + 
+				                   '            <div class="close" onclick="closeForm()" title="닫기"></div>' + 
+				                   '        </div>' + 
+				                   '        <div class="body">' + 
+				                   '            <div class="desc">' + 
+				                   '                <div class="txt_address">'+myItem[i].dutyAddr+'</div>' + 
+				                   '                <div class="jibun ellipsis">'+myItem[i].dutyTel1+'</div>' + 
+				                   '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+				                   '            </div>' + 
+				                   '        </div>' + 
+				                   '    </div>' +    
+				                   '</div>';
+
+			  			            
 			                    
+			                    //현재 진료 가능한 병원만 보려고 하는 경우
 	 	    				if($('input:checkbox[id="open"]').is(":checked") == true){
+
+
+
+	 	    					//함수 호출로 병원 진료시간을 확인
 	 	    					var isOpen=openHospital(myItem[i].hpid);
 	 	    					console.log(isOpen);
+	 	    					//열려있는 경우만 목록 출력
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
-	 			                    
-	 			                    
+				                    
 	 			                    output += '<h3>'+ i + '번째 병원' +'</h3>';
 	 			                    output += '<h4>'+hoName+myItem[i].distance+"km"+'</h4>';
 	 			                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
@@ -268,17 +310,15 @@
 	 			                   /*  $("#listhospital").html(output); */
 	 			                   
 	 			          
-	 			                   var hoPosition=new daum.maps.LatLng(hoLat,hoLng);
-	 			                   justMarker(hoPosition,hoLat,hoLng);
+	 			                   justMarker(hoPosition,hoLat,hoLng,content);
 	 	    					}
+	 	    					
 		    				}
+			                    //모든 병원 목록 출력
 	 	    				else{
 		                    var output = '';
 		                    console.log(myItem.length);
 		                    
-    						var hoName=myItem[i].dutyName;
-		                    var hoLat=myItem[i].latitude;
-		                    var hoLng=myItem[i].longitude;
 		                    
 		                    output += '<h3>'+ i + '번째 병원' +'</h3>';
 		                    output += '<h4>'+hoName+myItem[i].distance+"km"+'</h4>';
@@ -287,10 +327,8 @@
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
 		                   /*  $("#listhospital").html(output); */
-		                   
-		          
-		                   var hoPosition=new daum.maps.LatLng(hoLat,hoLng);
-		                   justMarker(hoPosition,hoLat,hoLng);
+
+		                   justMarker(hoPosition,hoLat,hoLng,content);
 		                   
 		                }
 		                }
@@ -319,7 +357,7 @@
 						
 						
 		              //마커만 표시하는 함수
-	    				function justMarker(locPosition,hoLat,hoLng){
+	    				function justMarker(locPosition,hoLat,hoLng,content){
 	    					var markerPosition=locPosition;
 	    					var marker=new daum.maps.Marker({
 	    						position:markerPosition
@@ -335,12 +373,34 @@
 	    				    position : iwPosition, 
 	    				    content : iwContent 
 	    				});
-	    				  
+					          
+ 
+   			            
+   			            
+   			      // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+   			         daum.maps.event.addListener(marker, 'click', function() {
+   			             
+   			        	 if(overlay!=null) overlay.setMap(null);
+	  			            overlay = new daum.maps.CustomOverlay({
+	   			                content: content,
+	   			                map: map,
+	   			                position: markerPosition      
+	   			            }); 
+   			        	 overlay.setMap(map);
+   			         });
 	    				// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	    			    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 	    			    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));	
 	    					
 	    				}
+		              
+	    				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+	    				/* function closeForm() {
+	    					console.log("test");
+	    				    overlay.setMap(null);     
+	    				} */
+		              
+		              
 	    				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 	    				function makeOverListener(map, marker, infowindow) {
 	    				    return function() {
@@ -372,8 +432,13 @@
 		});
 	});
 			
+			function closeForm() {
+				console.log("test");
+			    overlay.setMap(null);     
+			}
 			
-			// 현재 진료중인지 check
+			
+			// 현재 진료중인지 check (hpID=고유 기관 ID를 통해 병원 분별)
 			function openHospital(hpID){
 				//document.getElementById('search').innerHTML += "<P>The time is ${hour}:${minute}. date is ${today} </P>";
 				
@@ -381,7 +446,7 @@
 				var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+hpID;
 				var today = "${today}";
 				//var hour = "${hour}";
-				var hour = 9;
+				var hour = 9; //시간 테스트용
 				var minute = "${minute}";
 				
 		/* 		console.log("today : " + today);
@@ -391,6 +456,8 @@
 				var hos_open, hos_close;
 				var hos_open_hour, hos_open_minute;
 				var hos_close_hour, hos_close_minute;
+				
+				var result="";
 				
 				$.ajax({
 					crossDomain:true,
@@ -427,8 +494,8 @@
 						 
 						 var openHo = data.response.body.items.item;
 						 console.log(apiUrl);
-				if(openHo.dutyTime${today}s==null) {console.log(openHo.dutyTime${today}s); return "off";}
-				if(openHo.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); return "off";}
+				if(openHo.dutyTime${today}s==null) {console.log("진료 시작 시간 정보 없음"); result = "off"; return false;}
+				if(openHo.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); result = "off"; return false;}
 				
 				hos_open = JSON.stringify(openHo.dutyTime${today}s);
 				hos_close = JSON.stringify(openHo.dutyTime${today}c);
@@ -449,18 +516,19 @@
 				console.log("close - "+hos_close_hour+":"+hos_close_minute); */
 				
 				
-				if(hour>hos_open_hour&&hour<hos_close_hour) {return "on";}
+				if(hour>hos_open_hour&&hour<hos_close_hour) {result = "on"; return true;}
 				else if(hour==hos_open_hour){
-					if(minute>=hos_open_minute) return "on";
-					else return "off";
+					if(minute>=hos_open_minute) {result = "on"; return true;}
+					else {result = "off"; return false;}
 				}
 				else if(hour==hos_close_hour){
-					if(minute<=hos_close_minute) return "on";
-					else return "off";
+					if(minute<=hos_close_minute) {result = "on"; return true;}
+					else  {result = "off"; return false;}
 				}
-				else return "off";
+				else  {result = "off"; return false;}
 					}
 				});
+				return result;
 			}
 			
 </script>
