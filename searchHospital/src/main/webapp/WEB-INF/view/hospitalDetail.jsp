@@ -41,7 +41,8 @@
 				var detailItem = data.response.body.items.item;
 			    
 				// 병원 명
-				document.getElementById('detailInfo-Name').innerHTML += "<h1>"+detailItem.dutyName+"</h1>";
+				document.getElementById('detailInfo-Name').innerHTML += "<h1>"+detailItem.dutyName+"</h1> <hr size=\"50\" color=\"gray\">";
+				
 				
 				//지도
 				var lat = detailItem.wgs84Lat;
@@ -130,7 +131,12 @@
 			}
 		});
 	});
+
     </script>
+    <style>
+    #detail {background:rgba(250,250,250,0.7);
+    padding:40px;}
+    </style>
 </head>
 
 <body id="page-top">
@@ -145,21 +151,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch">my location</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/">address</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-            </li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="${pageContext.request.contextPath}/">home</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="${pageContext.request.contextPath}/address">ADDRESS</a></li>
+
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#footer">Team</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="http://lifesemantics.kr/">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -177,7 +179,7 @@
       </div>
     </section>
 
-<div id="detail" class="container" >
+<div id="detail" class="container">
  	<div id="detailInfo-Name" style="padding-bottom:30px"></div>
  	<div id="detailInfo-top" class="detailInfo-top" style="width:100%; height:300px; padding-bottom:30px">
  	<div id="detailMap"></div>
@@ -185,7 +187,7 @@
  	<table border="1"></table>
  	</div>
  	</div>
- 	<div id="detailInfo-contents">
+ 	<div id="detailInfo-contents"> 
  	<div id="detailInfo-contents-time" style="margin-bottom:30px"><h5>진료시간</h5><hr size="10" color="gray"></div>
  	<div id="detailInfo-contents-subject" style="margin-bottom:30px"><h5>진료과목</h5><hr size="10" color="gray"></div>
  	<div id="detailInfo-contents-info" style="margin-bottom:30px"><h5>비고</h5><hr size="10" color="gray"></div>

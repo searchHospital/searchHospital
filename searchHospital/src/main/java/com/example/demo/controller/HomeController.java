@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	@RequestMapping(value="/address",method=RequestMethod.GET)
 	public String hello(Locale locale, Model model) {
 		
 		Date date = new Date();
@@ -44,7 +44,7 @@ public class HomeController {
 		
 /*		model.addAttribute("title", "Spring Boot View Demo");
         model.addAttribute("time", new Date().toString());*/
-		return "home";
+		return "address";
 	}
 
 	@RequestMapping(value="/mapSearch",method=RequestMethod.GET)
@@ -89,5 +89,46 @@ public class HomeController {
 
 		
 		return "hospitalDetail";
+	}
+	
+	@RequestMapping(value="/home_mobile",method=RequestMethod.GET)
+	public String home_mobile(Model model) {
+
+		Calendar cal = Calendar.getInstance(); 
+
+		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int minute = cal.get(Calendar.MINUTE);
+		
+		//추가한 부분
+		if(num==0) num=7;
+		
+		model.addAttribute("hour",hour);
+		model.addAttribute("minute",minute);
+		model.addAttribute("today", num );
+		
+		
+		return "home_mobile";
+	}
+	
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String hospitalDetail(Model model) {
+
+		Calendar cal = Calendar.getInstance(); 
+
+		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int minute = cal.get(Calendar.MINUTE);
+		
+		//추가한 부분
+		if(num==0) num=7;
+		
+		model.addAttribute("hour",hour);
+		model.addAttribute("minute",minute);
+		model.addAttribute("today", num );
+		
+
+		
+		return "home";
 	}
 }

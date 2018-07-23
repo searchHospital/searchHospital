@@ -62,7 +62,7 @@
 
 <body>
 			
-				
+			
 
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -78,15 +78,16 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="${pageContext.request.contextPath}/">home</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/">ADDRESS</a></li>
+						href="${pageContext.request.contextPath}/address">ADDRESS</a></li>
+
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#about">About</a></li>
+						href="#footer">Team</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#team">Team</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#contact">Contact</a></li>
+						href="http://lifesemantics.kr/">Contact</a></li>
 				</ul>
 			</div>
 		</div>
