@@ -302,10 +302,10 @@
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
 				                    
-	 			                    output += '<h3>'+ i + '번째 병원' +'</h3>';
-	 			                    output += '<h4>'+hoName+myItem[i].distance+"km"+'</h4>';
+	 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+	 			                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
 	 			                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
-	 			                    output += '<h5>'+myItem[i].dutyTel1+'</h4>';
+	 			                    output += '<h5>'+myItem[i].dutyTel1+'</h4> <hr color="gray">';
 	 			                    
 	 			                    document.getElementById('listhospital').innerHTML += output;
 	 			                   /*  $("#listhospital").html(output); */
@@ -321,12 +321,13 @@
 		                    console.log(myItem.length);
 		                    
 		                    
-		                    output += '<h3>'+ i + '번째 병원' +'</h3>';
-		                    output += '<h4>'+hoName+myItem[i].distance+"km"+'</h4>';
+		                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+		                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
 		                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
-		                    output += '<h5>'+myItem[i].dutyTel1+'</h4>';
+		                    output += '<h5>'+myItem[i].dutyTel1+'</h4> <hr color="gray">';
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
+		                    
 		                   /*  $("#listhospital").html(output); */
 
 		                   justMarker(hoPosition,hoLat,hoLng,content);

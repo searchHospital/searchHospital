@@ -69,6 +69,7 @@
 				var table='';
 				table+='<tr><th id=\"address\">주소</th><td>'+detailItem.dutyAddr+'</td></tr>';
 				table+='<tr><th id="tel">대표전화</th><td>'+detailItem.dutyTel1+'</td></tr>';
+				if(detailItem.dutyMapimg==null) detailItem.dutyMapimg='-';
 				table+='<tr><th id="info">소개</th><td>'+detailItem.dutyMapimg+'</td></tr>';
 				
 				$('table').append(table);
