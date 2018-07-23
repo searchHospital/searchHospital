@@ -116,7 +116,7 @@
  	</div>
  	<div id="detailInfo-contents"></div>
  	</div>
-</div>
+
     <!-- Footer -->
     <footer>
       <div class="container">

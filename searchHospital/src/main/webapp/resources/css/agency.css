@@ -340,6 +340,7 @@ header.masthead.intro-text.intro-heading {
 }
 
 .pop-layer {
+	
   display: none;
   position: absolute;
   top: 20%;
@@ -803,6 +804,7 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 
 .detailInfo-top{
+	font-family:'Malgun Gothic';
 	padding-top : 10px;
 	padding-bottom : 10px;
 	display:grid;
@@ -813,5 +815,6 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 	grid-column: 1 / 2;
 }
 .basicInfo{
+	font-family:'Malgun Gothic';
 	grid-column: 2 / 3;
 }
