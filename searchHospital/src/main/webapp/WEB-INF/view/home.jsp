@@ -241,6 +241,8 @@
 				 var hos_open_hour, hos_open_minute;
 				 var hos_close_hour, hos_close_minute;
 				 var day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","공휴일"];
+				 
+
 			        contents += '<h4>'+hosItem.dutyName+'</h4>';
 			        contents += '<p>'+hosItem.dutyAddr+'</p>';
 			        contents += '<p>'+hosItem.dutyTel1+'</p>';
@@ -249,7 +251,7 @@
 			        for(var i=1;i<=8;i++){
 			        	contents += '<p>'+day[i-1];
 			        	var search_open = "dutyTime"+i+"s";
-			        	var search_close = "dutyTime"+i+"s";
+			        	var search_close = "dutyTime"+i+"c";
 			        if(hosItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); contents += ' Open - 진료 시간 정보 없음 </p>';}
 			        else if(hosItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); contents += ' Close - 진료 시간 정보 없음 </p>';}
 			        else{
@@ -273,6 +275,7 @@
 			        }
 			        document.getElementById('hopitalDetail').innerHTML += contents;
 			        
+					$('#btn-detail').empty();
 			        document.getElementById('btn-detail').innerHTML += "<a href=\"${pageContext.request.contextPath}/hospitalDetail?hospitalId="
 			        		+hosItem.hpid+"\" class=\"btn-layerDetail\">상세보기</a>";
 			},
@@ -401,6 +404,7 @@
  	
  	</div>
  	</div>
+ 	
  	</div>
  	</section>
 
@@ -408,21 +412,15 @@
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">
     <div class="btn-r"><a href="#" class="btn-layerClose"><img src="${pageContext.request.contextPath}/resources/img/close.png" style="width:40px; height: auto;" ></a></div>
-    <!-- <div class="btn-r"><a href="#" class="btn-layerClose">Close</a></div> -->
         <div class="pop-container">
             <div class="pop-conts">
             <div id="hopitalDetail"></div> 
                 <!--// content-->
             </div>
             <div id="btn-detail" class="btn-r">
-            <%-- <form action="${pageContext.request.contextPath}/hospitalDetail" method="get" class="btn-layerDetail">
-            <!-- <input class="btn-layerDetail" type="submit" value="상세보기"> -->
-            <!-- <button class="btn-layerDetail" type="submit">상세보기</button> -->
-            <a href="#" onclick="formSubmit(); return false;" class="btn-layerDetail">상세보기</a>
-            </form>
-            </div> --%>
         </div>
     </div>
+</div>
 </div>
 
     <!-- Footer -->
@@ -462,7 +460,6 @@
             </ul>
           </div>
         </div>
-        
       </div>
     </footer>
 
