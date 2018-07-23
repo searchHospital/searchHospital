@@ -80,7 +80,7 @@
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#portfolio">ADDRESS</a></li>
+						href="${pageContext.request.contextPath}/">ADDRESS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#about">About</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
