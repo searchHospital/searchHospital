@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9266c0989eff5725cf55a5ad10b485e3"></script>
     <script type="text/javascript">
     var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+"${hospitalId}";
@@ -38,19 +39,91 @@
 			success:function(data){
 				console.log(apiUrl);
 				var detailItem = data.response.body.items.item;
-				var detailCont ='';
-				detailCont += "<h4>"+detailItem.dutyAddr+"</h4>";
-				detailCont += "<h4>"+detailItem.dutyTel1+"</h4>";
+			    
+				// 병원 명
+				document.getElementById('detailInfo-Name').innerHTML += "<h1>"+detailItem.dutyName+"</h1>";
 				
+				//지도
+				var lat = detailItem.wgs84Lat;
+				var lon = detailItem.wgs84Lon;
+				
+				var mapContainer = document.getElementById("detailMap"), // 지도를 표시할 div
+				
+			    mapOption = { 
+			        center: new daum.maps.LatLng(lat, lon), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };
+
+				var map = new daum.maps.Map(mapContainer, mapOption); // 지도 생성
+			
+				var markerPosition  = new daum.maps.LatLng(lat, lon); // 마커 위치
+
+				var marker = new daum.maps.Marker({ // 마커 생성
+				    position: markerPosition
+				});
+
+				marker.setMap(map); // 마커가 지도 위에 표시
+				
+				// 기본 정보 표
 				var table='';
 				table+='<tr><th id=\"address\">주소</th><td>'+detailItem.dutyAddr+'</td></tr>';
 				table+='<tr><th id="tel">대표전화</th><td>'+detailItem.dutyTel1+'</td></tr>';
 				table+='<tr><th id="info">소개</th><td>'+detailItem.dutyMapimg+'</td></tr>';
-				  
-				document.getElementById('detailInfo-Name').innerHTML += "<h1>"+detailItem.dutyName+"</h1>";
 				
-				document.getElementById('detailInfo-contents').innerHTML += detailCont;
 				$('table').append(table);
+				
+				// 진료 시간
+				var detailTime ='';
+				var hos_open;
+				 var hos_close;
+				 var hos_open_hour, hos_open_minute;
+				 var hos_close_hour, hos_close_minute;
+				 var day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","공휴일"];
+				 detailTime +='<table>';
+				
+			        for(var i=0;i<2;i++){
+			        	detailTime +='<tr>';
+			        	for(var j=1;j<=4;j++){
+			        	detailTime += '<td width="300">&sdot; '+day[i*4+j-1]+' ';
+			        	var search_open = "dutyTime"+(i*4+j)+"s";
+			        	var search_close = "dutyTime"+(i*4+j)+"c";
+			        if(detailItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); detailTime += ' -</td>';}
+			        else if(detailItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); detailTime += ' -</td>';}
+			        else{
+					hos_open = JSON.stringify(detailItem[search_open]);
+					hos_close = JSON.stringify(detailItem[search_close]);
+					
+					hos_open = hos_open.replace("\"", "");
+					hos_close = hos_close.replace("\"", "");
+					
+					console.log("open - "+hos_open);
+					console.log("close - "+hos_close);
+					
+					hos_open_hour = hos_open.substring(0,2);
+					hos_open_minute = hos_open.substring(2,4);
+					
+					hos_close_hour = hos_close.substring(0,2);
+					hos_close_minute = hos_close.substring(2,4);
+					
+					detailTime += hos_open_hour+":"+hos_open_minute+" ~ "+hos_close_hour+":"+hos_close_minute+'</td>';
+			        }
+			        }
+			        	detailTime += '</tr>';
+			        }
+			        detailTime += '</table><hr size="10">';
+			       
+				 $('#detailInfo-contents-time').append(detailTime);
+				 
+				 //진료과목
+				 var detailSubject = '&sdot; '+detailItem.dgidIdName+'<hr size="10">';
+				 $('#detailInfo-contents-subject').append(detailSubject);
+
+				//비고
+				var detailInfo ='';
+				if(detailItem.dutyInf!=null){ detailInfo += '<p>&sdot; '+detailItem.dutyInf+'</p>';}
+				if(detailItem.dutyMapimg!=null){ detailInfo += '<p>&sdot; '+detailItem.dutyMapimg+'</p>';}
+				detailInfo += '<hr size="10">';
+				 $('#detailInfo-contents-info').append(detailInfo);
 			},
 			error:function(e){
 				console.log("Detail Page API Loding Error")
@@ -104,17 +177,19 @@
       </div>
     </section>
 
-<div id="detail" class="container">
- 	<div id="detailInfo-Name"></div>
- 	<div id="detailInfo-top" class="detailInfo-top" style="width:100%; height:300px;">
- 	<div id="map"><p>hi</p></div>
+<div id="detail" class="container" >
+ 	<div id="detailInfo-Name" style="padding-bottom:30px"></div>
+ 	<div id="detailInfo-top" class="detailInfo-top" style="width:100%; height:300px; padding-bottom:30px">
+ 	<div id="detailMap"></div>
  	<div id="basicInfo">
- 	<table border="1">
- 	
- 	</table>
+ 	<table border="1"></table>
  	</div>
  	</div>
- 	<div id="detailInfo-contents"></div>
+ 	<div id="detailInfo-contents">
+ 	<div id="detailInfo-contents-time" style="margin-bottom:30px"><h5>진료시간</h5><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-subject" style="margin-bottom:30px"><h5>진료과목</h5><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-info" style="margin-bottom:30px"><h5>비고</h5><hr size="10" color="gray"></div>
+ 	</div>
  	</div>
 
     <!-- Footer -->
