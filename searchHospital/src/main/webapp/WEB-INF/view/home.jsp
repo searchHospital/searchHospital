@@ -353,7 +353,7 @@
               <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch">my location</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/">address</a>
+              <a class="nav-link js-scroll-trigger" href="/">address</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#about">About</a>
