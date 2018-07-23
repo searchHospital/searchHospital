@@ -401,7 +401,6 @@
  	
  	</div>
  	</div>
- 	
  	</div>
  	</section>
 
@@ -463,6 +462,7 @@
             </ul>
           </div>
         </div>
+        
       </div>
     </footer>
 

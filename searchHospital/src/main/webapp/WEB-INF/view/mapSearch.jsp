@@ -78,9 +78,9 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/services">Services</a></li>
+						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#portfolio">Portfolio</a></li>
+						href="#portfolio">ADDRESS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#about">About</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
@@ -281,7 +281,7 @@
 				                   '            <div class="desc">' + 
 				                   '                <div class="txt_address">'+myItem[i].dutyAddr+'</div>' + 
 				                   '                <div class="jibun ellipsis">'+myItem[i].dutyTel1+'</div>' + 
-				                   '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank">상세보기</a></div>' + 
 				                   '            </div>' + 
 				                   '        </div>' + 
 				                   '    </div>' +    
