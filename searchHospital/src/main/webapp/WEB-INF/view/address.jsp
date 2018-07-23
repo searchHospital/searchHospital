@@ -37,21 +37,25 @@
 		$('#getData').click(function() {
 			pageNo=1;
 			console.log(pageNo);
+			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
 			
 			var sido = $("#sido option:selected").val();
 			var sigungu = $("#sigungu option:selected").val();
 
 			var searchAdd = $("#detailAdd").val();
 			var searchName = $("#search_name").val();
+			var searchSubject = $("#subject option:selected").val();
 			
-			console.log(searchName);
+			console.log(searchSubject);
 			
 			if(searchAdd!=null){
-			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey+"&pageNo="+pageNo;
+			apiUrl += "&pageNo="+pageNo;
 			}
-			else {
-				var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
+			
+			if(searchSubject!=""){
+				apiUrl += "&QD="+searchSubject;
 				}
+			
 		
 			document.getElementById('listhospital').innerHTML ="";
 			
@@ -136,22 +140,27 @@
 		$('#moreView').click(function(){
 			pageNo++;
 			console.log(pageNo);
+			
+			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
 
 			var sido = $("#sido option:selected").val();
 			var sigungu = $("#sigungu option:selected").val();
 			
 			var searchAdd = $("#detailAdd").val();
 			var searchName = $("#search_name").val();
+			var searchSubject = $("#subject option:selected").val();
 			
 			console.log(searchName);
 			
 			if(searchAdd!=null){
-			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey+"&pageNo="+pageNo;
-			console.log(apiUrl);
-			}
-			else {
-				var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
+				apiUrl += "&pageNo="+pageNo;
 				}
+			
+			if(searchSubject!=""){
+				apiUrl += "&QD="+searchSubject;
+				}
+			
+			console.log(apiUrl);
 			
 			if(sido=="") { alert("'시/도'를 선택해주세요."); return false;}
 			
@@ -257,12 +266,9 @@
      	        var $href = $(this).attr('href');
      	        layer_popup($href);
      	        $("#hopitalDetail").empty();
-     	    }); 
-		
+     	    }); 		
 		}
-		
 
-		
 		/* 상세 페이지 팝업 */
 	    function layer_popup(el){
 	        var $el = $(el);        //레이어의 id를 $el 변수에 저장
@@ -452,6 +458,31 @@
 	<input type="text" id="detailAdd" placeholder="상세주소입력"> <br>
 	<select id="subject">
 	<option value="">전체 선택</option>
+	<option value="D001">내과</option>
+	<option value="D002">소아청소년과</option>
+	<option value="D003">신경과</option>
+	<option value="D004">정신건강의학과</option>
+	<option value="D005">피부과</option>
+	<option value="D006">외과</option>
+	<option value="D007">흉부외과</option>
+	<option value="D008">정형외과</option>
+	<option value="D009">신경외과</option>
+	<option value="D010">성형외과</option>
+	<option value="D011">산부인과</option>
+	<option value="D012">안과</option>
+	<option value="D013">이비인후과</option>
+	<option value="D014">비뇨기과</option>
+	<option value="D016">재활의학과</option>
+	<option value="D017">마취통증의학과</option>
+	<option value="D018">영상의학과</option>
+	<option value="D019">치료방사선과</option>
+	<option value="D020">임상병리과</option>
+	<option value="D021">해부병리과</option>
+	<option value="D022">가정의학과</option>
+	<option value="D023">핵의학과</option>
+	<option value="D024">응급의학과</option>
+	<option value="D026">치과</option>
+	<option value="D034">구강악안면외과</option>
 	</select>
 	<input type="text" id="search_name" placeholder="병원명을 입력하세요.">
 	<input type="button" id="getData" value="검색" /><br>
