@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 public class HomeController {
 	@RequestMapping(value="/address",method=RequestMethod.GET)
@@ -21,17 +19,13 @@ public class HomeController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
-		String formattedDate = dateFormat.format(date);
-		
-		//String[] weekDay = { "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" };     
+		String formattedDate = dateFormat.format(date);   
 
 		Calendar cal = Calendar.getInstance(); 
 
 		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		int minute = cal.get(Calendar.MINUTE);
-		
-		//String today = weekDay[num]; 
 		
 		//추가한 부분
 		if(num==0) num=7;
@@ -41,23 +35,16 @@ public class HomeController {
 		model.addAttribute("hour",hour);
 		model.addAttribute("minute",minute);
 		model.addAttribute("today", num );
-		
-/*		model.addAttribute("title", "Spring Boot View Demo");
-        model.addAttribute("time", new Date().toString());*/
 		return "address";
 	}
 
 	@RequestMapping(value="/mapSearch",method=RequestMethod.GET)
 	public String map(Model model) {
-//		model.addAttribute("title", "Spring Boot View Demo");
-//      model.addAttribute("time", new Date().toString());
 		Calendar cal = Calendar.getInstance(); 
 
 		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		int minute = cal.get(Calendar.MINUTE);
-		
-		//String today = weekDay[num]; 
 		
 		//추가한 부분
 		if(num==0) num=7;
@@ -91,25 +78,7 @@ public class HomeController {
 		return "hospitalDetail";
 	}
 	
-	@RequestMapping(value="/home_mobile",method=RequestMethod.GET)
-	public String home_mobile(Model model) {
-
-		Calendar cal = Calendar.getInstance(); 
-
-		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
-		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		int minute = cal.get(Calendar.MINUTE);
-		
-		//추가한 부분
-		if(num==0) num=7;
-		
-		model.addAttribute("hour",hour);
-		model.addAttribute("minute",minute);
-		model.addAttribute("today", num );
-		
-		
-		return "home_mobile";
-	}
+	
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String hospitalDetail(Model model) {
