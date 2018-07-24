@@ -12,6 +12,15 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+
+select{
+	-webkit-appearance: none;
+	moz-appearance:none;
+	width:180px;
+	height:30px;
+	background:url(../img/arrow.png) no-repeat 95% 50%;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -200,7 +209,7 @@ img::-moz-selection {
   font-weight: 400;
   /* padding: 0.75em 0; */
   letter-spacing: 1px;
-  color: white;
+  color: black;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 

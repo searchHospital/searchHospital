@@ -461,7 +461,7 @@
  	<select id="sido"></select>
 	<select id="sigungu"></select>
 
-	<input type="text" id="detailAdd" placeholder="상세주소입력"><br>
+	<input type="text" id="detailAdd" placeholder="상세주소입력"><br><br>
 	<select id="subject">
 	<option value="">진료과목 선택</option>
 	<option value="D001">내과</option>
@@ -496,7 +496,7 @@
 	</div>
  	<div id="listhospital"></div>
  	<hr size="10">
- 	<p id="moreView" style="text-align:center">더보기</p>
+ 	<p id="moreView" style="text-align:center; cursor:pointer;">더보기</p>
  	
  	</div>
  	</div>
