@@ -114,9 +114,9 @@
 					<div class="search-line">
 						<div class="search filter">
 							<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
-							
-							<input type="checkbox" id=open> 현재 진료가능한 병원만 보기
-							<input type="button" id="getData" value="검색" />
+							<div style="text-align: center;">
+							<input type="checkbox" id=open style="margin-top:25px;margin-bottom:25px;"> 현재 진료가능한 병원만 보기
+							<input type="button" id="getData" value="검색" /></div>
 							<div style="text-align: center;"> <div id="map" style="width:900px;height:700px; display: inline-block; margin-bottom:15px" ></div></div> 
 							<div id="listhospital"></div>
 						</div>
@@ -312,7 +312,7 @@
 	 			                   /*  $("#listhospital").html(output); */
 	 			                   
 	 			          
-	 			                   justMarker(hoPosition,hoLat,hoLng,content);
+	 			                   onMarker(hoPosition,hoLat,hoLng,content);
 	 	    					}
 	 	    					
 		    				}
@@ -332,7 +332,8 @@
 		                    
 		                   /*  $("#listhospital").html(output); */
 
-		                   justMarker(hoPosition,hoLat,hoLng,content);
+		                   if (isOpen=="on") onMarker(hoPosition,hoLat,hoLng,content);
+		                   else justMarker(hoPosition,hoLat,hoLng,content);
 		                   
 		                }
 		                }
@@ -361,6 +362,48 @@
 						
 						
 		              //마커만 표시하는 함수
+	    				function onMarker(locPosition,hoLat,hoLng,content){
+		            	  var imageSrc="${pageContext.request.contextPath}/resources/img/hosMarker.png";
+		            	  var imageSize = new daum.maps.Size(35, 35);
+		            	  var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
+	    					var markerPosition=locPosition;
+	    					var marker=new daum.maps.Marker({
+	    						position:markerPosition,
+	    						image:markerImage
+	    					});
+	    					
+
+	    					marker.setMap(map);
+	    					var iwContent = '<div>'+hoName+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	    				    iwPosition = new daum.maps.LatLng(hoLat,hoLng); //인포윈도우 표시 위치입니다
+
+	    				// 인포윈도우를 생성합니다
+	    				var infowindow = new daum.maps.InfoWindow({
+	    				    position : iwPosition, 
+	    				    content : iwContent 
+	    				});
+					          
+ 
+   			            
+   			            
+   			      // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+   			         daum.maps.event.addListener(marker, 'click', function() {
+   			             
+   			        	 if(overlay!=null) overlay.setMap(null);
+	  			            overlay = new daum.maps.CustomOverlay({
+	   			                content: content,
+	   			                map: map,
+	   			                position: markerPosition      
+	   			            }); 
+   			        	 overlay.setMap(map);
+   			         });
+	    				// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	    			    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	    			    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));	
+	    					
+	    				}
+		              
+			              //마커만 표시하는 함수
 	    				function justMarker(locPosition,hoLat,hoLng,content){
 	    					var markerPosition=locPosition;
 	    					var marker=new daum.maps.Marker({

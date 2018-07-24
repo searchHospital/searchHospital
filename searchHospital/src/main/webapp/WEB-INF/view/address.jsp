@@ -78,7 +78,7 @@
 			});
 		});
 		
-		var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
+		var area0 = [" 시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
 		var area1 = ["전체 선택","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
 		var area2 = ["전체 선택","계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
 		var area3 = ["전체 선택","대덕구","동구","서구","유성구","중구"];
@@ -104,7 +104,7 @@
 				 $sido.append("<option value=''>"+this+"</option>");}
 			 else $sido.append("<option value='"+this+"'>"+this+"</option>");
 		});
-		$sido.next().append("<option value=''>구/군 선택</option>");
+		$sido.next().append("<option value=''> 구/군 선택</option>");
 		});
 
 		// 시/도 선택시 구/군 설정
@@ -456,14 +456,14 @@
  	<div class="search filter">
  	<!-- <div style="text-align: center;"> -->
  	<div class="search input" style="text-align:center">
- 	<p class="section-sub" style="text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p><br>
+ 	<p class="section-sub" style="text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!!</p><br>
 
  	<select id="sido"></select>
 	<select id="sigungu"></select>
 
 	<input type="text" id="detailAdd" placeholder="상세주소입력"><br><br>
 	<select id="subject">
-	<option value="">진료과목 선택</option>
+	<option value=""> 진료과목 선택</option>
 	<option value="D001">내과</option>
 	<option value="D002">소아청소년과</option>
 	<option value="D003">신경과</option>
@@ -491,8 +491,8 @@
 	<option value="D034">구강악안면외과</option>
 	</select>
 	<input type="text" id="search_name" placeholder="병원명을 입력하세요.">
-	<input type="button" id="getData" value="검색" /><br>
-	<input type="checkbox" id=open style="margin-bottom:25px"> 현재 진료가능한 병원만 보기
+	<input type="button" id="getData" value="검색"/><br>
+	<input type="checkbox" id=open style="margin-top:25px;margin-bottom:25px;"> 현재 진료가능한 병원만 보기
 	</div>
  	<div id="listhospital"></div>
  	<hr size="10">
