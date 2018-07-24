@@ -95,7 +95,6 @@
 
 	<!--    Services -->
 	<section id="services">
-		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">Find Helper!</h2>
@@ -105,9 +104,12 @@
 					</h3>
 				</div>
 			</div>
+			
+			
 
 			<!-- search -->
-			<section id="search">
+			<div class="container">
+			<h2 style="padding-bottom:15px">● 현 위치로 병원 찾기</h2>
 				<div class="search body">
 					<div class="search-line">
 						<div class="search filter">
@@ -115,14 +117,12 @@
 							
 							<input type="checkbox" id=open> 현재 진료가능한 병원만 보기
 							<input type="button" id="getData" value="검색" />
-							<div id="map" style="width:900px;height:700px;" ></div> 
-
+							<div style="text-align: center;"> <div id="map" style="width:900px;height:700px; display: inline-block" ></div></div> 
 							<div id="listhospital"></div>
 						</div>
 					</div>
-
 				</div>
-			</section>
+				</div>
 			
 			<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9266c0989eff5725cf55a5ad10b485e3"></script>
 	

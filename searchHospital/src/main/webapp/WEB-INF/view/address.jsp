@@ -446,7 +446,7 @@
     </section>
  
  <!-- search -->
- 	<section id="search">
+ <div class = "container">
  	<div class="search body">
  	<div class="search-line">
  	<div class="search filter">
@@ -457,7 +457,7 @@
 
 	<input type="text" id="detailAdd" placeholder="상세주소입력"> <br>
 	<select id="subject">
-	<option value="">전체 선택</option>
+	<option value="">진료과목 선택</option>
 	<option value="D001">내과</option>
 	<option value="D002">소아청소년과</option>
 	<option value="D003">신경과</option>
@@ -495,7 +495,7 @@
  	</div>
  	</div>
  	</div>
- 	</section>
+ 	</div>
 
 <div class="dim-layer">
     <div class="dimBg"></div>
