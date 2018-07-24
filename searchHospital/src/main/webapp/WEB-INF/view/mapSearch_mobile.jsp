@@ -41,15 +41,15 @@
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <style>
-    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 220px;height: 122px;margin-left: -110px;text-align: left;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info {width: 222px;height: 110px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;white-space:normal !important;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 14px;font-weight: bold;white-space:normal !important;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
     .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 13px 13px 0 13px;height: 75px;}
+    .info .desc {position: relative;margin: 7px 0 0 7px;height: 75px;}
     .txt_address {word-break:break-all;white-space:normal !important;}
     .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
@@ -101,11 +101,11 @@
 				<div class="search body" style="font-family:'Malgun Gothic';">
 					<div class="search-line" style="padding: 20px 20px">
 						<div class="search filter">
-							<p class="section-sub" style="font-size:11px; font-weight:bold">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p>
+							<p class="section-sub" style="font-size:14px; font-weight:bold; text-align:center;">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p>
 							
 							<input type="checkbox" id="open" ><label for="open" style="font-size:10px">&nbsp현재 진료가능한 병원만 보기</label><br>
 							<input type="button" id="getData" value="검색" />
-							<div style="text-align:center;"> <div id="map" style="width:250px; height: 250px; display: inline-block" ></div></div> 
+							<div style="text-align:center;"> <div id="map" style="width:305px; height: 250px; display: inline-block; padding-bottom:50px" ></div></div> 
 							<div id="listhospital"></div>
 						</div>
 					</div>
@@ -144,8 +144,6 @@
 				navigator.geolocation.getCurrentPosition(function(position){
 					lat=position.coords.latitude;
 					lon=position.coords.longitude;
-					console.log(lat);
-					console.log(lon);
 					var locPosition=new daum.maps.LatLng(lat,lon);
 					nowMarker(locPosition); 
 
@@ -273,7 +271,7 @@
 				                   '            <div class="desc">' + 
 				                   '                <div class="txt_address">'+myItem[i].dutyAddr+'</div>' + 
 				                   '                <div class="jibun ellipsis">'+myItem[i].dutyTel1+'</div>' + 
-				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank">상세보기</a></div>' + 
+				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank" style="font-size:8px">상세보기</a></div>' + 
 				                   '            </div>' + 
 				                   '        </div>' + 
 				                   '    </div>' +    
@@ -287,15 +285,15 @@
 
 	 	    					//함수 호출로 병원 진료시간을 확인
 	 	    					var isOpen=openHospital(myItem[i].hpid);
-	 	    					console.log(isOpen);
 	 	    					//열려있는 경우만 목록 출력
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
 				                    
-	 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-	 			                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
-	 			                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
-	 			                    output += '<h5>'+myItem[i].dutyTel1+'</h4> <hr color="gray">';
+	 	    						/* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
+	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
+	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
 	 			                    
 	 			                    document.getElementById('listhospital').innerHTML += output;
 	 			          
@@ -308,15 +306,13 @@
 		                    var output = '';
 		                    console.log(myItem.length);
 		                    
-		                    
-		                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-		                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
-		                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
-		                    output += '<h5>'+myItem[i].dutyTel1+'</h4> <hr color="gray">';
+		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;>'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
+			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
+		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
+		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
-		                    
-		                   /*  $("#listhospital").html(output); */
 
 		                   justMarker(hoPosition,hoLat,hoLng,content);
 		                   
@@ -408,7 +404,6 @@
 	});
 			
 			function closeForm() {
-				console.log("test");
 			    overlay.setMap(null);     
 			}
 			
@@ -513,17 +508,6 @@
 			<script src="${pageContext.request.contextPath}/resources/js/agency.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/contact_me.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/js/jqBootstrapValidation.min.js"></script>
-			<%-- <script src="/vendor/jquery/jquery.min.js"></script>
-			<!-- Contact form JavaScript -->
-			<script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
-			<script src="<c:url value="/js/contact_me.js"/>"></script>
-
-			<!-- Custom scripts for this template -->
-			<script src="<c:url value="/js/agency.min.js"/>"></script>
-
-			<script src="<c:url value ="/resources/js/agency.js"/>"></script>
-			<script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
-			<script src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script> --%>
 
 			</body>
 </html>

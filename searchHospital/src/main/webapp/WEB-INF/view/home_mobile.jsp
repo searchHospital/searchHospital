@@ -76,9 +76,9 @@
     </section>
  <div>
  
- <a href="${pageContext.request.contextPath}/mapSearch"><img src="${pageContext.request.contextPath}/resources/img/lo.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px; 
+ <a href="${pageContext.request.contextPath}/mapSearch_mobile"><img src="${pageContext.request.contextPath}/resources/img/lo.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px; 
  opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'"></a>
- <a href="${pageContext.request.contextPath}/address"><img src="${pageContext.request.contextPath}/resources/img/add.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px;
+ <a href="${pageContext.request.contextPath}/address_mobile"><img src="${pageContext.request.contextPath}/resources/img/add.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px;
   opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'"></a>
  </div>
 
