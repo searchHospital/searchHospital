@@ -60,40 +60,17 @@
 </head>
 
 
-<body>
+<body id="page-top">
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/">Find
-				Helper</a>
-				
-<%-- 			<button class="navbar-toggler navbar-toggler-right" type="button"
-				data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				Menu <i class="fa fa-bars"></i>
-			</button>
-			
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/">home</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/address">ADDRESS</a></li>
-
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#footer">Team</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="http://lifesemantics.kr/">Contact</a></li>
-				</ul>
-			</div> --%>
-			
-			<button id="menuBar" class="navar-toggler navbar-toggler-right">Menu<i class="fa fa-bars"></i></button>
-			<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none">
+			<a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">Find Helper</a>
+			<button id="menuBar" class="navbar-toggler navbar-toggler-right">
+          Menu
+          <i class="fa fa-bars"></i></button>
+			<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none;">
 			<ul class="navbar-nav text-uppercase ml-auto" >
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/">home</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#footer">Team</a></li>
@@ -104,7 +81,8 @@
 	</nav>
 
 	<!--    Services -->
-	<section id="services">
+	<section id="service" style="padding-bottom:0px">
+	<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading text-uppercase">Find Helper!</h2>
@@ -114,8 +92,8 @@
 					</h3>
 				</div>
 			</div>
-			
-			
+	</div>
+	</section>
 
 			<!-- search -->
 			<div class="container">
@@ -133,6 +111,7 @@
 					</div>
 				</div>
 				</div>
+
 			
 			<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9266c0989eff5725cf55a5ad10b485e3"></script>
 	
@@ -269,7 +248,7 @@
 					 var container = document.getElementById('map');
 	    				var options = {
 	    					center : new daum.maps.LatLng(lat, lon),
-	    					level : 4
+	    					level : 5
 	    				};
 
 	    				//지도 생성
@@ -516,38 +495,10 @@
 			}
 			
 </script>
-			
 
 			<!-- Footer -->
 			<footer>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4">
-							<span class="copyright">Copyright &copy; Park soeun & Kim
-								kyoungryoung 2018</span>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline social-buttons">
-								<li class="list-inline-item"><a href="#"> <i
-										class="fa fa-twitter"></i>
-								</a></li>
-								<li class="list-inline-item"><a href="#"> <i
-										class="fa fa-facebook"></i>
-								</a></li>
-								<li class="list-inline-item"><a href="#"> <i
-										class="fa fa-linkedin"></i>
-								</a></li>
-							</ul>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline quicklinks">
-								<li class="list-inline-item"><a href="#">Privacy Policy</a>
-								</li>
-								<li class="list-inline-item"><a href="#">Terms of Use</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
 			
 			<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

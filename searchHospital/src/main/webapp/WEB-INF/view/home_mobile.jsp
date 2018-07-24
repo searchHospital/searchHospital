@@ -29,6 +29,16 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	/* 메뉴바 */
+		$("#menuBar").click(function(){
+			if($("#navbarResponsive").css("display")=="none") $("#navbarResponsive").css("display","block");
+			else{
+			$("#navbarResponsive").css("display","none"); }
+		});
+    });
+    		</script>
 
   </head>
 
@@ -37,31 +47,24 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/">Find Helper</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">Find Helper</a>
+			<button id="menuBar" class="navbar-toggler navbar-toggler-right">
           Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive" style>
-          <ul class="navbar-nav text-uppercase ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/">home</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/address">ADDRESS</a></li>
-
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#footer">Team</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="http://lifesemantics.kr/">Contact</a></li>
-          </ul>
-        </div>
+          <i class="fa fa-bars"></i></button>
+			<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none;">
+			<ul class="navbar-nav text-uppercase ml-auto" >
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#footer">Team</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="http://lifesemantics.kr/">Contact</a></li>
+				</ul>
+				</div>
       </div>
     </nav>
 
   <!--    Services -->
-    <section id="services">
+    <section id="services" style="padding-bottom:0px">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -71,8 +74,6 @@
         </div>
       </div>
     </section>
- 
-
  <div>
  
  <a href="${pageContext.request.contextPath}/mapSearch"><img src="${pageContext.request.contextPath}/resources/img/lo.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px; 
