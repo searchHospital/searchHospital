@@ -117,7 +117,7 @@
 							
 							<input type="checkbox" id=open> 현재 진료가능한 병원만 보기
 							<input type="button" id="getData" value="검색" />
-							<div style="text-align: center;"> <div id="map" style="width:900px;height:700px; display: inline-block" ></div></div> 
+							<div style="text-align: center;"> <div id="map" style="width:900px;height:700px; display: inline-block; margin-bottom:15px" ></div></div> 
 							<div id="listhospital"></div>
 						</div>
 					</div>
@@ -303,9 +303,9 @@
 	 	    						var output = '';
 				                    
 	 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-	 			                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
-	 			                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
-	 			                    output += '<h5>'+myItem[i].dutyTel1+'</h4> <hr color="gray">';
+		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'">'+hoName+'</a> '+'<h4> '+myItem[i].distance+"km"+'</h4>';
+	 			                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
+	 			                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5> <hr color="gray">';
 	 			                    
 	 			                    document.getElementById('listhospital').innerHTML += output;
 	 			                   /*  $("#listhospital").html(output); */
@@ -323,8 +323,8 @@
 		                    
 		                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 		                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
-		                    output += '<h5>'+myItem[i].dutyAddr+'</h4>';
-		                    output += '<h5>'+myItem[i].dutyTel1+'</h4> <hr color="gray">';
+		                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
+		                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5> <hr color="gray">';
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
 		                    
@@ -538,34 +538,8 @@
 
 			<!-- Footer -->
 			<footer>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4">
-							<span class="copyright">Copyright &copy; Park soeun & Kim
-								kyoungryoung 2018</span>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline social-buttons">
-								<li class="list-inline-item"><a href="#"> <i
-										class="fa fa-twitter"></i>
-								</a></li>
-								<li class="list-inline-item"><a href="#"> <i
-										class="fa fa-facebook"></i>
-								</a></li>
-								<li class="list-inline-item"><a href="#"> <i
-										class="fa fa-linkedin"></i>
-								</a></li>
-							</ul>
-						</div>
-						<div class="col-md-4">
-							<ul class="list-inline quicklinks">
-								<li class="list-inline-item"><a href="#">Privacy Policy</a>
-								</li>
-								<li class="list-inline-item"><a href="#">Terms of Use</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
+						
 			</footer>
 			
 			

@@ -124,7 +124,7 @@
 		}
 		});	
 		
-		/* ALL - ON 버튼 toggle 기능 */
+/* 		ALL - ON 버튼 toggle 기능
 		$('#all_on_btn').click(function(){
 			if($('#all_on_btn').val()=="all"){
 				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/on.jpg')
@@ -134,7 +134,7 @@
 				$('#all_on_btn').attr('value','all')}
 			
 			console.log($('#all_on_btn').val());
-		});
+		}); */
 		
 		/* 더보기 */
 		$('#moreView').click(function(){
@@ -229,13 +229,12 @@
 	                	myItem_address = JSON.stringify(myItem[i].dutyAddr);
 						
 						if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
-								if(($('#all_on_btn').val()=="on"&&isOpen=="on")||$('#all_on_btn').val()=="all"){
+								if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 									  var output = '';
-					                    output += '<h3>'+ i + '번째 병원' +'</h3>';
-					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>';
-					                    output += '<h4>'+myItem[i].dutyAddr+'</h4>';
-					                    output += '<h4>'+myItem[i].dutyTel1+'</h4>';
-					                    output += '<p>'+isOpen+'</p>';
+					                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>'+'<p>'+isOpen+'</p>';
+					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
+					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5>';
 					                    document.getElementById('listhospital').innerHTML += output;             
 								}
 	                	}	
@@ -249,13 +248,12 @@
             	myItem_address = JSON.stringify(myItem.dutyAddr);
 				
 				if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
-						if(($('#all_on_btn').val()=="on"&&isOpen=="on")||$('#all_on_btn').val()=="all"){
+						if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 							  var output = '';
-			                    output += '<h3>'+ i + '번째 병원' +'</h3>';
-			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>';
-			                    output += '<h4>'+myItem.dutyAddr+'</h4>';
-			                    output += '<h4>'+myItem.dutyTel1+'</h4>';
-			                    output += '<p>'+isOpen+'</p>';
+			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>'+'<p>'+isOpen+'</p>';
+			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyAddr+'</h5>';
+			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyTel1+'</h5>';
 			                    document.getElementById('listhospital').innerHTML += output;             
 						}
             	}
@@ -356,7 +354,7 @@
 			        
 					$('#btn-detail').empty();
 			        document.getElementById('btn-detail').innerHTML += "<a href=\"${pageContext.request.contextPath}/hospitalDetail?hospitalId="
-			        		+hosItem.hpid+"\" class=\"btn-layerDetail\">상세보기</a>";
+			        		+hosItem.hpid+"\" class=\"btn-layerDetail\" target=\"_blank\">상세보기</a>";
 			},
 		error : function(e){
 			console.log("상세정보 api 불러오기 error!!");
@@ -446,12 +444,15 @@
     </section>
  
  <!-- search -->
- <div class = "container">
+ <div class = "container">			
+ <h2 style="padding-bottom:15px">● 주소지로 병원 찾기</h2>
+
  	<div class="search body">
  	<div class="search-line">
  	<div class="search filter">
- 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p><br>
- 	
+ 	<!-- <div style="text-align: center;"> -->
+ 	<p class="section-sub" style="text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!</p><br>
+
  	<select id="sido"></select>
 	<select id="sigungu"></select>
 
@@ -486,8 +487,7 @@
 	</select>
 	<input type="text" id="search_name" placeholder="병원명을 입력하세요.">
 	<input type="button" id="getData" value="검색" /><br>
-	<input id="all_on_btn" type="image" value="all" src="${pageContext.request.contextPath}/resources/img/all.jpg">
-	
+	<input type="checkbox" id=open> 현재 진료가능한 병원만 보기
  	<div id="listhospital"></div>
  	<hr size="10">
  	<p id="moreView" style="text-align:center">더보기</p>
@@ -512,45 +512,11 @@
 </div>
 </div>
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline quicklinks">
-              <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+			<!-- Footer -->
+			<footer>
+							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
+						
+			</footer>
 
     <!-- Contact form JavaScript -->
     <script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
