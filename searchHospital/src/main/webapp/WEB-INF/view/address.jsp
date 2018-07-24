@@ -232,9 +232,11 @@
 								if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 									  var output = '';
 					                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>'+'<p>'+isOpen+'</p>';
+					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>';
+					                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
+						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
 					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
-					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5>';
+					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5><hr color="gray">';
 					                    document.getElementById('listhospital').innerHTML += output;             
 								}
 	                	}	
@@ -251,9 +253,11 @@
 						if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 							  var output = '';
 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>'+'<p>'+isOpen+'</p>';
+			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>';
+			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
+				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
 			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyAddr+'</h5>';
-			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyTel1+'</h5>';
+			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyTel1+'</h5><hr color="gray">';
 			                    document.getElementById('listhospital').innerHTML += output;             
 						}
             	}
@@ -451,12 +455,13 @@
  	<div class="search-line">
  	<div class="search filter">
  	<!-- <div style="text-align: center;"> -->
- 	<p class="section-sub" style="text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!</p><br>
+ 	<div class="search input" style="text-align:center">
+ 	<p class="section-sub" style="text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p><br>
 
  	<select id="sido"></select>
 	<select id="sigungu"></select>
 
-	<input type="text" id="detailAdd" placeholder="상세주소입력"> <br>
+	<input type="text" id="detailAdd" placeholder="상세주소입력"><br>
 	<select id="subject">
 	<option value="">진료과목 선택</option>
 	<option value="D001">내과</option>
@@ -487,7 +492,8 @@
 	</select>
 	<input type="text" id="search_name" placeholder="병원명을 입력하세요.">
 	<input type="button" id="getData" value="검색" /><br>
-	<input type="checkbox" id=open> 현재 진료가능한 병원만 보기
+	<input type="checkbox" id=open style="margin-bottom:25px"> 현재 진료가능한 병원만 보기
+	</div>
  	<div id="listhospital"></div>
  	<hr size="10">
  	<p id="moreView" style="text-align:center">더보기</p>

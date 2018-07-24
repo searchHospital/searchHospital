@@ -282,28 +282,29 @@
 				                   '            <div class="desc">' + 
 				                   '                <div class="txt_address">'+myItem[i].dutyAddr+'</div>' + 
 				                   '                <div class="jibun ellipsis">'+myItem[i].dutyTel1+'</div>' + 
-				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank">상세보기</a></div>' + 
+				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank" style="font-size:12px">상세보기</a></div>' + 
 				                   '            </div>' + 
 				                   '        </div>' + 
 				                   '    </div>' +    
 				                   '</div>';
 
-			  			            
+
+
+		 	    					//함수 호출로 병원 진료시간을 확인
+		 	    					var isOpen=openHospital(myItem[i].hpid);
+		 	    					console.log(isOpen);
 			                    
 			                    //현재 진료 가능한 병원만 보려고 하는 경우
 	 	    				if($('input:checkbox[id="open"]').is(":checked") == true){
 
 
-
-	 	    					//함수 호출로 병원 진료시간을 확인
-	 	    					var isOpen=openHospital(myItem[i].hpid);
-	 	    					console.log(isOpen);
 	 	    					//열려있는 경우만 목록 출력
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
 				                    
 	 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'">'+hoName+'</a> '+'<h4> '+myItem[i].distance+"km"+'</h4>';
+		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank">'+hoName+'</a> '+'<h4> '+myItem[i].distance+"km"+'</h4>';
+		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
 	 			                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
 	 			                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5> <hr color="gray">';
 	 			                    
@@ -318,11 +319,12 @@
 			                    //모든 병원 목록 출력
 	 	    				else{
 		                    var output = '';
-		                    console.log(myItem.length);
 		                    
 		                    
 		                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-		                    output += '<h4>'+hoName+" "+myItem[i].distance+"km"+'</h4>';
+		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank">'+hoName+'</a> '+'<h4> '+myItem[i].distance+"km"+'</h4>';
+		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
+			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
 		                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
 		                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5> <hr color="gray">';
 		                    
