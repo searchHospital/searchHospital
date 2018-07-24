@@ -55,6 +55,7 @@
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
+    #mainNav .navbar-nav .nav-item .nav-link {color:white;}
 </style>
 
 </head>
@@ -69,7 +70,7 @@
           Menu
           <i class="fa fa-bars"></i></button>
 			<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none;">
-			<ul class="navbar-nav text-uppercase ml-auto" >
+			<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
@@ -97,15 +98,17 @@
 
 			<!-- search -->
 			<div class="container">
-			<h5 style="padding-bottom:15px; font-family:'Malgun Gothic';">● 현 위치로 병원 찾기</h5>
+			<h5 style="padding-bottom:15px; margin-left:5px">&middot 현 위치로 병원 찾기</h5>
 				<div class="search body" style="font-family:'Malgun Gothic';">
 					<div class="search-line" style="padding: 20px 20px">
 						<div class="search filter">
-							<p class="section-sub" style="font-size:14px; font-weight:bold; text-align:center;">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p>
-							
-							<input type="checkbox" id="open" ><label for="open" style="font-size:10px">&nbsp현재 진료가능한 병원만 보기</label><br>
-							<input type="button" id="getData" value="검색" />
+							<p class="section-sub" style="font-size:14px; font-weight:bold; text-align:center;">방문하기 전 한 번 더 확인하시고, 방문하세요!</p>
 							<div style="text-align:center;"> <div id="map" style="width:305px; height: 250px; display: inline-block; padding-bottom:50px" ></div></div> 
+							<div style="text-align:center" >
+							<input type="checkbox" id="open" ><label for="open" style="font-size:12px">&nbsp현재 진료가능한 병원만 보기</label><br><br>
+							
+							<input type="button" id="getData" value="검색"/><hr color="gray">
+							</div>
 							<div id="listhospital"></div>
 						</div>
 					</div>
@@ -233,7 +236,7 @@
 		                     $("#div_ajax_load_image").show();
 		              }
 		              else {
-		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:rgba(250,250,250,0); filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 		              }
 
 		       },
@@ -271,7 +274,7 @@
 				                   '            <div class="desc">' + 
 				                   '                <div class="txt_address">'+myItem[i].dutyAddr+'</div>' + 
 				                   '                <div class="jibun ellipsis">'+myItem[i].dutyTel1+'</div>' + 
-				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank" style="font-size:8px">상세보기</a></div>' + 
+				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank" style="font-size:8px">상세보기</a></div>' + 
 				                   '            </div>' + 
 				                   '        </div>' + 
 				                   '    </div>' +    
@@ -290,7 +293,7 @@
 	 	    						var output = '';
 				                    
 	 	    						/* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
 	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
@@ -306,7 +309,7 @@
 		                    var output = '';
 		                    console.log(myItem.length);
 		                    
-		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;>'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
 		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
@@ -450,9 +453,8 @@
 			                     $("#div_ajax_load_image").show();
 			              }
 			              else {
-			                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+			                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:rgba(250,250,250,0); filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 			              }
-
 			       },
 					success: function(data){
 						 $("#div_ajax_load_image").hide();

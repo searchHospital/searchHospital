@@ -28,6 +28,10 @@
     <!-- <link href="css/agency.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
+	<style>
+    #mainNav .navbar-nav .nav-item .nav-link {color:white;}
+	</style>
+    
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {

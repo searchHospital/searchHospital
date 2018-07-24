@@ -28,105 +28,55 @@
     <!-- <link href="css/agency.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
+    <style>
+    #mainNav .navbar-nav .nav-item .nav-link {color:white;} 
+    #search_name, #detailAdd {width:275px;}
+        select {width:275px; margin-bottom:5px;}
+    </style>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" class="first">
+	<script type="text/javascript" class="first">
+	var pageNo=1;
 	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
-	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey+"&numOfRows=100000";
+	
 	$(document).ready(function() {
-		
-		/* 메뉴바 */
-		$("#menuBar").click(function(){
-			if($("#navbarResponsive").css("display")=="none") $("#navbarResponsive").css("display","block");
-			else{
-			$("#navbarResponsive").css("display","none"); }
-		});
-		
 		$('#getData').click(function() {
+			pageNo=1;
 			
-			document.getElementById('listhospital').innerHTML ="";
+			$('#moreView').css("display","block");
+			
+			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
+			
 			var sido = $("#sido option:selected").val();
 			var sigungu = $("#sigungu option:selected").val();
+
+			var searchAdd = $("#detailAdd").val();
+			var searchName = $("#search_name").val();
+			var searchSubject = $("#subject option:selected").val();
 			
-			console.log(sido);
+			console.log(searchSubject);
+			
+			if(searchAdd!=null){
+			apiUrl += "&pageNo="+pageNo;
+			}
+			
+			if(searchSubject!=""){
+				apiUrl += "&QD="+searchSubject;
+				}
+			
+		
+			document.getElementById('listhospital').innerHTML ="";
+			
 			if(sido=="") { alert("'시/도'를 선택해주세요."); return false;}
 			
 			$.ajax({
 				crossDomain : true,
-				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName,
 				type : 'get',
-				dataType : "json" , 
-				beforeSend: function () {
-		              var width = 0;
-		              var height = 0;
-		              var left = 0;
-		              var top = 0;
-
-		              width = 50;
-		              height = 50;
-		              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
-		              left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
-
-		              if($("#div_ajax_load_image").length != 0) {
-		                     $("#div_ajax_load_image").css({
-		                            "top": top+"px",
-		                            "left": left+"px"
-		                     });
-		                     $("#div_ajax_load_image").show();
-		              }
-		              else {
-		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
-		              }
-		       },
-		       
-				success : function(data) {
-					console.log("success!");
-					console.log(apiUrl);
-					 $("#div_ajax_load_image").hide();
-					 
-					 var myItem = data.response.body.items.item;
-					 var myItem_address;
-					 var myItem_name;
-					 
-					 var isOpen;
-						
-					var searchAdd = $("#detailAdd").val();
-					var searchName = $("#search_name").val();
-					
-					console.log(myItem.length);
-					
-					if(myItem.length==null) {document.getElementById('listhospital').innerHTML += "검색결과가 없습니다."; return false;}
-					
-		                for(var i=0; i<myItem.length; i++){
-		            		/* if(nowOpen(myItem[i])==true) isOpen="on" ;
-		            		else isOpen="off"; */
-		            		
-		            		isOpen = nowOpen(myItem[i]);
-		            		
-		            		/* console.log(isOpen); */
-		            		
-		                	myItem_address = JSON.stringify(myItem[i].dutyAddr);
-		                	myItem_name = JSON.stringify(myItem[i].dutyName);
-							
-							if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
-								if(myItem_name.indexOf(searchName)!=-1||searchName==null){
-									if(($('#all_on_btn').val()=="on"&&isOpen=="on")||$('#all_on_btn').val()=="all"){
-										  var output = '';
-						                    output += '<h3>'+ i + '번째 병원' +'</h3>';
-						                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].dutyName+'\',\''+sido+'\',\''+sigungu+'\')">'+myItem[i].dutyName+'</a>';
-						                    output += '<h4>'+myItem[i].dutyAddr+'</h4>';
-						                    output += '<h4>'+myItem[i].dutyTel1+'</h4>';
-						                    output += '<p>'+isOpen+'</p>';
-						                    document.getElementById('listhospital').innerHTML += output;             
-									}
-								}
-		                }	
-		                }
-						/* 상세페이지 */
-		        		$('.btn-example').click(function(){
-		        	        var $href = $(this).attr('href');
-		        	        layer_popup($href);
-		        	        $("#hopitalDetail").empty();
-		        	    }); 
+				dataType : 'json',
+				beforeSend: loading(),
+				success : function(data){
+					console.log("*************" + apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName);
+					getData(data);
 				},
 				error : function(e) {
 					alert("error!");
@@ -134,6 +84,13 @@
 				}
 			});
 		});
+		
+		/* 메뉴바 */
+		$("#menuBar").click(function(){
+			if($("#navbarResponsive").css("display")=="none") $("#navbarResponsive").css("display","block");
+			else{
+			$("#navbarResponsive").css("display","none"); }
+		})
 		
 		var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
 		var area1 = ["전체 선택","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
@@ -154,7 +111,6 @@
 		var area16 = ["전체 선택","서귀포시","제주시","남제주군","북제주군"];
 		
 		// 시/도 선택 박스 초기화
-
 		$("#sido").each(function() {
 		$sido = $(this);
 		$.each(eval(area0), function() {
@@ -182,18 +138,141 @@
 		}
 		});	
 		
-		/* ALL - ON 버튼 toggle 기능 */
-		$('#all_on_btn').click(function(){
-			if($('#all_on_btn').val()=="all"){
-				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/on.jpg')
-				$('#all_on_btn').attr('value','on')}
-			else if($('#all_on_btn').val()=="on"){
-				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/all.jpg')
-				$('#all_on_btn').attr('value','all')}
+		/* 더보기 */
+		$('#moreView').click(function(){
+			pageNo++;
+			console.log(pageNo);
 			
-			console.log($('#all_on_btn').val());
+			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
+
+			var sido = $("#sido option:selected").val();
+			var sigungu = $("#sigungu option:selected").val();
+			
+			var searchAdd = $("#detailAdd").val();
+			var searchName = $("#search_name").val();
+			var searchSubject = $("#subject option:selected").val();
+			
+			console.log(searchName);
+			
+			if(searchAdd!=null){
+				apiUrl += "&pageNo="+pageNo;
+				}
+			
+			if(searchSubject!=""){
+				apiUrl += "&QD="+searchSubject;
+				}
+			
+			console.log(apiUrl);
+			
+			if(sido=="") { alert("'시/도'를 선택해주세요."); return false;}
+			
+			$.ajax({
+				crossDomain : true,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName,
+				type : 'get',
+				dataType : 'json',
+				beforeSend: loading(),
+				success : function(data){
+					getData(data);
+				},
+				error : function(e) {
+					alert("error!");
+					console.log(apiUrl);
+				}
+			});
 		});
 		
+		/* 로딩 */
+		function loading() {
+		              var width = 0;
+		              var height = 0;
+		              var left = 0;
+		              var top = 0;
+
+		              width = 50;
+		              height = 50;
+		              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+		              left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+		              if($("#div_ajax_load_image").length != 0) {
+		                     $("#div_ajax_load_image").css({
+		                            "top": top+"px",
+		                            "left": left+"px"
+		                     });
+		                     $("#div_ajax_load_image").show();
+		              }
+		              else {
+		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+		              }
+		       }
+		
+		/* 성공 시 callback */
+		function getData(data){
+			 $("#div_ajax_load_image").hide();
+			 $('#moreView').show();
+			 
+			 var zeroItem = data.response.body.items.length;
+			 var myItem = data.response.body.items.item;
+			 var myItem_address;
+			 var myItem_name;
+			 
+			 var isOpen;
+			 
+			 if(zeroItem==0) {document.getElementById('listhospital').innerHTML += "검색결과가 없습니다."; $('#moreView').hide(); return false;
+			 
+			 }else if(myItem.length != null){ // 검색 결과가 여러개일 경우,
+				 var searchAdd = $("#detailAdd").val();
+				
+				console.log(myItem.length);
+				
+	                for(var i=0; i<myItem.length; i++){
+	            		isOpen = nowOpen(myItem[i]);
+	            		
+	                	myItem_address = JSON.stringify(myItem[i].dutyAddr);
+						
+						if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
+								if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
+									  var output = '';
+					                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>';
+					                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
+						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
+					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
+					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5><hr color="gray">';
+					                    document.getElementById('listhospital').innerHTML += output;             
+								}
+	                	}	
+	                }
+			}else{ // 검색 결과값이 하나밖에 없을 경우
+				
+				$('#moreView').hide();
+				 var myItem = data.response.body.items.item;
+         		isOpen = nowOpen(myItem);
+        		
+            	myItem_address = JSON.stringify(myItem.dutyAddr);
+				
+				if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
+						if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
+							  var output = '';
+			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
+			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>';
+			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
+				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
+			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyAddr+'</h5>';
+			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyTel1+'</h5><hr color="gray">';
+			                    document.getElementById('listhospital').innerHTML += output;             
+						}
+            	}
+			}
+			 
+     		/* 상세페이지 */
+     		$('.btn-example').click(function(){
+     	        var $href = $(this).attr('href');
+     	        layer_popup($href);
+     	        $("#hopitalDetail").empty();
+     	    }); 		
+		}
+
 		/* 상세 페이지 팝업 */
 	    function layer_popup(el){
 	        var $el = $(el);        //레이어의 id를 $el 변수에 저장
@@ -226,19 +305,17 @@
 	       }
 	});
 	
-	function hospitalDetail(hosName,sido,sigungu){
-		console.log(hosName);
-		hosName = hosName.replace(/ /gi, "");
-		console.log(hosName);
-		
+	/* 상세페이지 팝업 - 데이터 가져오기 */
+	function hospitalDetail(hosID){
+		var detailUrl = 'http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey='+ serviceKey+'&HPID='+hosID;
 		$.ajax({
 			crossDomain : true,
-			url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+hosName,
+			url : detailUrl,
 			type : 'get',
 			dataType : "json",
 			success: function(data){
 				console.log("상세정보 api 불러오기 success!!");
-				console.log(apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+hosName);
+				console.log(detailUrl);
 				
 				 var hosItem = data.response.body.items.item;
 				 
@@ -253,7 +330,6 @@
 			        contents += '<h4>'+hosItem.dutyName+'</h4>';
 			        contents += '<p>'+hosItem.dutyAddr+'</p>';
 			        contents += '<p>'+hosItem.dutyTel1+'</p>';
-			        contents += '<p>'+hosItem.dutyEmclsName+'</p>';
 			        
 			        for(var i=1;i<=8;i++){
 			        	contents += '<p>'+day[i-1];
@@ -284,7 +360,7 @@
 			        
 					$('#btn-detail').empty();
 			        document.getElementById('btn-detail').innerHTML += "<a href=\"${pageContext.request.contextPath}/hospitalDetail?hospitalId="
-			        		+hosItem.hpid+"\" class=\"btn-layerDetail\">상세보기</a>";
+			        		+hosItem.hpid+"\" class=\"btn-layerDetail\" target=\"_blank\">상세보기</a>";
 			},
 		error : function(e){
 			console.log("상세정보 api 불러오기 error!!");
@@ -292,17 +368,12 @@
 		});
 	}
 	
-	// 현재 진료중인지 check
+	/* 현재 진료중인지 check */
 	function nowOpen(json){
-		//document.getElementById('search').innerHTML += "<P>The time is ${hour}:${minute}. date is ${today} </P>";
 		var today = "${today}";
 		//var hour = "${hour}";
 		var hour = 9;
 		var minute = "${minute}";
-		
-/* 		console.log("today : " + today);
-		console.log("hour : " + hour);
-		console.log("minute : " + minute); */
 
 		var hos_open, hos_close;
 		var hos_open_hour, hos_open_minute;
@@ -316,18 +387,12 @@
 		
 		hos_open = hos_open.replace("\"", "");
 		hos_close = hos_close.replace("\"", "");
-		 
-		/* console.log("open - "+hos_open);
-		console.log("close - "+hos_close); */
 		
 		hos_open_hour = hos_open.substring(0,2);
 		hos_open_minute = hos_open.substring(2,4);
 		
 		hos_close_hour = hos_close.substring(0,2);
 		hos_close_minute = hos_close.substring(2,4);
-		
-		/* console.log("open - "+hos_open_hour+":"+hos_open_minute);
-		console.log("close - "+hos_close_hour+":"+hos_close_minute); */
 		
 		if(hour>hos_open_hour&&hour<hos_close_hour) {return "on";}
 		else if(hour==hos_open_hour){
@@ -340,6 +405,8 @@
 		}
 		else return "off";
 	}
+	
+
 </script>
 
   </head>
@@ -347,14 +414,14 @@
   <body id="page-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">Find Helper</a>
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">Find Helper</a>
 			<button id="menuBar" class="navbar-toggler navbar-toggler-right">
           Menu
           <i class="fa fa-bars"></i></button>
 			<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none;">
-			<ul class="navbar-nav text-uppercase ml-auto" >
+			<ul class="navbar-nav text-uppercase ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
@@ -362,11 +429,11 @@
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="http://lifesemantics.kr/">Contact</a></li>
 				</ul>
 				</div>
-      </div>
-    </nav>
+		</div>
+	</nav>
 
   <!--    Services -->
-  <section id="service" style="padding-bottom:0px">
+    <section id="services" style="padding-bottom:0px">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -375,35 +442,60 @@
           </div>
         </div>
       </div>
-      </section>
+    </section>
  
  <!-- search -->
- 
  <div class = "container">			
- <h2 style="padding-bottom:15px">● 주소지로 병원 찾기</h2>
- 
- 	<div class="search body">
- 	<div class="search-line">
- 	<div class="search filter">
- 	<p class="section-sub">방문하기 전 한 번 더 확인하시고, 방문하세요!!!</p><br>
- 	
- 	<select id="sido"></select>
-	<select id="sigungu"></select>
+ <h5 style="padding-bottom:15px; margin-left:5px"">&middot 주소지로 병원 찾기</h5>
 
-	<input type="text" id="detailAdd" placeholder="상세주소입력"> <br>
+ 	<div class="search body">
+ 	<div class="search-line" style="padding: 20px 20px">
+ 	<div class="search filter">
+ 	<div class="search input" style="text-align:center">
+ 	<p class="section-sub" style="font-size:14px; font-weight:bold;text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!</p><br>
+
+ 	<select id="sido"></select>
+	<select id="sigungu"></select><br>
+
+	<input type="text" id="detailAdd" placeholder="상세주소입력"><br><br>
 	<select id="subject">
-	<option value="">전체 선택</option>
-	</select>
-	<input type="text" id="search_name" placeholder="병원명을 입력하세요.">
-	<input type="button" id="getData" value="검색" /><br>
-	<input id="all_on_btn" type="image" value="all" src="${pageContext.request.contextPath}/resources/img/all.jpg">
-	<%-- <input id="on_btn" type="image" value="on_off" src="${pageContext.request.contextPath}/resources/img/on_gray.jpg"> --%>
-	
+	<option value="">진료과목 선택</option>
+	<option value="D001">내과</option>
+	<option value="D002">소아청소년과</option>
+	<option value="D003">신경과</option>
+	<option value="D004">정신건강의학과</option>
+	<option value="D005">피부과</option>
+	<option value="D006">외과</option>
+	<option value="D007">흉부외과</option>
+	<option value="D008">정형외과</option>
+	<option value="D009">신경외과</option>
+	<option value="D010">성형외과</option>
+	<option value="D011">산부인과</option>
+	<option value="D012">안과</option>
+	<option value="D013">이비인후과</option>
+	<option value="D014">비뇨기과</option>
+	<option value="D016">재활의학과</option>
+	<option value="D017">마취통증의학과</option>
+	<option value="D018">영상의학과</option>
+	<option value="D019">치료방사선과</option>
+	<option value="D020">임상병리과</option>
+	<option value="D021">해부병리과</option>
+	<option value="D022">가정의학과</option>
+	<option value="D023">핵의학과</option>
+	<option value="D024">응급의학과</option>
+	<option value="D026">치과</option>
+	<option value="D034">구강악안면외과</option>
+	</select><br>
+	<input type="text" id="search_name" placeholder="병원명을 입력하세요." /><br><br>
+	<input type="checkbox" id=open style="margin-bottom:25px"> 현재 진료가능한 병원만 보기 <br>
+	<input type="button" id="getData" value="검색" />
+	</div>
  	<div id="listhospital"></div>
- 	
+ 	<hr size="10">
+ 	<p id="moreView" style="text-align:center; cursor:pointer; display:none">더보기</p>
  	</div>
  	</div>
- 	
+ 	</div>
  	</div>
 
 <div class="dim-layer">
@@ -420,11 +512,10 @@
     </div>
 </div>
 </div>
-</div>
 
 			<!-- Footer -->
 			<footer>
-							<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
+				<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
 
     <!-- Contact form JavaScript -->
