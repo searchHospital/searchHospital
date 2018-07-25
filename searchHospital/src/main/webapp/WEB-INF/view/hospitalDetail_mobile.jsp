@@ -76,7 +76,7 @@
 				// 기본 정보 표
 				var table='';
 				table+='<tr><th id=\"address\">주소</th><td>'+detailItem.dutyAddr+'</td></tr>';
-				table+='<tr><th id="tel">대표전화</th><td>'+detailItem.dutyTel1+'</td></tr>';
+				table+='<tr><th id="tel">대표전화</th><td><a href=tel:"'+detailItem.dutyTel1+'"" style="font-size:13px; font-weight: normal;">'+detailItem.dutyTel1+'</a></td></tr>';
 				if(detailItem.dutyMapimg==null) detailItem.dutyMapimg='-';
 				table+='<tr><th id="info">소개</th><td>'+detailItem.dutyMapimg+'</td></tr>';
 				
@@ -163,7 +163,6 @@
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#footer">Team</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="http://lifesemantics.kr/">Contact</a></li>
 				</ul>
 				</div>

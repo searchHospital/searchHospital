@@ -32,7 +32,8 @@
     #mainNav .navbar-nav .nav-item .nav-link {color:white;} 
     #search_name, #detailAdd {width:275px;}
     .pop-layer{left:8vw;width:85vw;}
-    a {font-size:21px;}
+    .pop-layer p{font-size:13px}
+    a {font-size:20px;}
     select {width:275px; margin-bottom:5px;}
     </style>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -72,12 +73,12 @@
 			
 			$.ajax({
 				crossDomain : true,
-				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName,
 				type : 'get',
 				dataType : 'json',
 				beforeSend: loading(),
 				success : function(data){
-					console.log("*************" + apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName);
+					console.log("*************" + apiUrl+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName);
 					getData(data);
 				},
 				error : function(e) {
@@ -170,7 +171,7 @@
 			
 			$.ajax({
 				crossDomain : true,
-				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName,
 				type : 'get',
 				dataType : 'json',
 				beforeSend: loading(),
@@ -235,12 +236,11 @@
 						if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
 								if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 									  var output = '';
-					                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a><br>';
 					                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
-						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:120px; height: auto;">';
+						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:136px; height: auto;">';
 					                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
-					                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6><hr color="gray">';
+					                    output += '<h6 style="color:#5B5B5B"><a href="tel:'+myItem[i].dutyTel1+'" style="font-size:15px; font-weight: normal;">'+myItem[i].dutyTel1+'</a></h6><hr color="gray">';
 					                    document.getElementById('listhospital').innerHTML += output;             
 								}
 	                	}	
@@ -259,9 +259,9 @@
 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a><br>';
 			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
-				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:120px; height: auto;">';
+				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:136px; height: auto;">';
 			                    output += '<h6 style="color:#5B5B5B">'+myItem.dutyAddr+'</h6>';
-			                    output += '<h6 style="color:#5B5B5B">'+myItem.dutyTel1+'</h6><hr color="gray">';
+			                    output += '<h6 style="color:#5B5B5B"><a href="tel:'+myItem.dutyTel1+'"style="font-size:15px; font-weight: normal;">'+myItem[i].dutyTel1+'</a></h6><hr color="gray">';
 			                    document.getElementById('listhospital').innerHTML += output;             
 						}
             	}
@@ -329,9 +329,9 @@
 				 var day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","공휴일"];
 				 
 
-			        contents += '<h4>'+hosItem.dutyName+'</h4>';
+			        contents += '<h6>'+hosItem.dutyName+'</h6>';
 			        contents += '<p>'+hosItem.dutyAddr+'</p>';
-			        contents += '<p>'+hosItem.dutyTel1+'</p>';
+			        contents += '<p><a href="tel:'+hosItem.dutyTel1+'" style="font-size:13px; font-weight: normal;">'+hosItem.dutyTel1+'</a></p>';
 			        
 			        for(var i=1;i<=8;i++){
 			        	contents += '<p>'+day[i-1];
@@ -427,7 +427,6 @@
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#footer">Team</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="http://lifesemantics.kr/">Contact</a></li>
 				</ul>
 				</div>

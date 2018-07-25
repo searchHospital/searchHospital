@@ -74,7 +74,6 @@
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#footer">Team</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="http://lifesemantics.kr/">Contact</a></li>
 				</ul>
 				</div>
@@ -273,7 +272,7 @@
 				                   '        <div class="body">' + 
 				                   '            <div class="desc">' + 
 				                   '                <div class="txt_address">'+myItem[i].dutyAddr+'</div>' + 
-				                   '                <div class="jibun ellipsis">'+myItem[i].dutyTel1+'</div>' + 
+				                   '                <div class="jibun ellipsis"><a href="tel:'+myItem[i].dutyTel1+'" style="font-size:15px; font-weight: normal;">'+myItem[i].dutyTel1+'</a></div>' + 
 				                   '                <div><a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'\" class="link" target="_blank" style="font-size:8px">상세보기</a></div>' + 
 				                   '            </div>' + 
 				                   '        </div>' + 
@@ -293,10 +292,10 @@
 	 	    						var output = '';
 				                    
 	 	    						/* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:21px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:20px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
-	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
+	 			                    output += '<h6 style="color:#5B5B5B"><a href="tel:'+myItem[i].dutyTel1+'" style="font-size:15px; font-weight: normal;">'+myItem[i].dutyTel1+'</a></h6> <hr color="gray">';
 	 			                    
 	 			                    document.getElementById('listhospital').innerHTML += output;
 	 			          
@@ -309,11 +308,11 @@
 		                    var output = '';
 		                    console.log(myItem.length);
 		                    
-		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:21px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:20px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
-			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:120px; height: auto;">';
+			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:136px; height: auto;">';
 		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
-		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
+		                    output += '<h6 style="color:#5B5B5B"><a href="tel:'+myItem[i].dutyTel1+'" style="font-size:15px; font-weight: normal;">'+myItem[i].dutyTel1+'</a></h6> <hr color="gray">';
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
 

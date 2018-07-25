@@ -50,9 +50,6 @@
 						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="${pageContext.request.contextPath}/address">ADDRESS</a></li>
-
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="#footer">Team</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="http://lifesemantics.kr/">Contact</a></li>
           </ul>
