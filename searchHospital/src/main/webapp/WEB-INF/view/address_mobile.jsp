@@ -452,7 +452,7 @@
  	<div class="search body">
  	<div class="search-line" style="padding: 20px 20px">
  	<div class="search filter">
- 	<div class="search input" style="text-align:center">
+ 	<div class="search input" style="text-align:center; padding-bottom:15px;">
  	<p class="section-sub" style="font-size:14px; font-weight:bold;text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!</p><br>
 
  	<select id="sido"></select>
@@ -491,8 +491,8 @@
 	<input type="checkbox" id=open style="margin-bottom:25px"> 현재 진료가능한 병원만 보기 <br>
 	<input type="button" id="getData" value="검색" />
 	</div>
+	<hr color="gray">
  	<div id="listhospital"></div>
- 	<hr size="10">
  	<p id="moreView" style="text-align:center; cursor:pointer; display:none">더보기</p>
  	</div>
  	</div>

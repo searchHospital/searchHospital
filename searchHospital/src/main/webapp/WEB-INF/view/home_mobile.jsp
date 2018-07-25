@@ -86,9 +86,8 @@
  </div>
 
 			<!-- Footer -->
-			<footer>
-							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
-						
+<footer>
+				<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
 
     <!-- Contact form JavaScript -->

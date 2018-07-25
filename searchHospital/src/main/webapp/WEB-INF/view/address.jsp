@@ -36,7 +36,9 @@
 	$(document).ready(function() {
 		$('#getData').click(function() {
 			pageNo=1;
-			console.log(pageNo);
+
+			$('#moreView').css("display","block");
+			
 			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
 			
 			var sido = $("#sido option:selected").val();
@@ -492,9 +494,7 @@
 	<input type="checkbox" id=open style="margin-top:25px;margin-bottom:25px;"> 현재 진료가능한 병원만 보기
 	</div>
  	<div id="listhospital"></div>
- 	<hr size="10">
- 	<p id="moreView" style="text-align:center; cursor:pointer;">더보기</p>
- 	
+ 	<p id="moreView" style="text-align:center; cursor:pointer; display:none">더보기</p>
  	</div>
  	</div>
  	</div>
