@@ -70,18 +70,17 @@
     </section>
  
 
- <div>
+ <div style="text-align:center">
  
- <a href="${pageContext.request.contextPath}/mapSearch"><img src="${pageContext.request.contextPath}/resources/img/lo.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px; 
+ <a href="${pageContext.request.contextPath}/mapSearch"><img src="${pageContext.request.contextPath}/resources/img/lo.jpg" style="margin-left: auto; margin-right: 100px; margin-bottom:20px; 
  opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'"></a>
- <a href="${pageContext.request.contextPath}/address"><img src="${pageContext.request.contextPath}/resources/img/add.jpg" style="margin-left: auto; margin-right: auto; display: block; margin-bottom:20px;
+ <a href="${pageContext.request.contextPath}/address"><img src="${pageContext.request.contextPath}/resources/img/add.jpg" style="margin-left: auto; margin-right: auto; margin-bottom:20px;
   opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'"></a>
  </div>
 
 			<!-- Footer -->
-			<footer>
-							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
-						
+			<footer style="width:100%; position: absolute; bottom: 0;">
+			<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>		
 			</footer>
 
     <!-- Contact form JavaScript -->

@@ -126,18 +126,6 @@
 		}
 		});	
 		
-/* 		ALL - ON 버튼 toggle 기능
-		$('#all_on_btn').click(function(){
-			if($('#all_on_btn').val()=="all"){
-				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/on.jpg')
-				$('#all_on_btn').attr('value','on')}
-			else if($('#all_on_btn').val()=="on"){
-				$('#all_on_btn').attr('src','${pageContext.request.contextPath}/resources/img/all.jpg')
-				$('#all_on_btn').attr('value','all')}
-			
-			console.log($('#all_on_btn').val());
-		}); */
-		
 		/* 더보기 */
 		$('#moreView').click(function(){
 			pageNo++;
@@ -517,8 +505,7 @@
 
 			<!-- Footer -->
 			<footer>
-							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
-						
+				<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
 
     <!-- Contact form JavaScript -->
