@@ -281,13 +281,13 @@
 				                   '</div>';
 
 			  			            
-			                    
+				                 //함수 호출로 병원 진료시간을 확인
+		 	    					var isOpen=openHospital(myItem[i].hpid);
 			                    //현재 진료 가능한 병원만 보려고 하는 경우
 	 	    				if($('input:checkbox[id="open"]').is(":checked") == true){
 
 
-	 	    					//함수 호출로 병원 진료시간을 확인
-	 	    					var isOpen=openHospital(myItem[i].hpid);
+	 	    					
 	 	    					//열려있는 경우만 목록 출력
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
@@ -300,7 +300,7 @@
 	 			                    
 	 			                    document.getElementById('listhospital').innerHTML += output;
 	 			          
-	 			                   justMarker(hoPosition,hoLat,hoLng,content);
+	 			                   onMarker(hoPosition,hoLat,hoLng,content);
 	 	    					}
 	 	    					
 		    				}
@@ -311,19 +311,21 @@
 		                    
 		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:21px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
-			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
+			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:120px; height: auto;">';
 		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
 		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
 
-		                   justMarker(hoPosition,hoLat,hoLng,content);
+			                   if (isOpen=="on") onMarker(hoPosition,hoLat,hoLng,content);
+			                   else justMarker(hoPosition,hoLat,hoLng,content);
 		                   
 		                }
 		                }
 		             // 마커가 지도 위에 표시되도록 설정합니다
 						map.setCenter(locPosition);
 		             
+		             //현위치 마커 표시하는 함수
 						function nowMarker(locPosition){
 
 		    				var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -345,7 +347,50 @@
 						}
 						
 						
-		              //마커만 표시하는 함수
+						//병원 마커 표시하는 함수(열려 있는 병원에만 적용)
+	    				function onMarker(locPosition,hoLat,hoLng,content){
+		            	  var imageSrc="${pageContext.request.contextPath}/resources/img/hosMarker.png";
+		            	  var imageSize = new daum.maps.Size(35, 35);
+		            	  var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
+	    					var markerPosition=locPosition;
+	    					var marker=new daum.maps.Marker({
+	    						position:markerPosition,
+	    						image:markerImage
+	    					});
+	    					
+
+	    					marker.setMap(map);
+	    					var iwContent = '<div>'+hoName+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	    				    iwPosition = new daum.maps.LatLng(hoLat,hoLng); //인포윈도우 표시 위치입니다
+
+	    				// 인포윈도우를 생성합니다
+	    				var infowindow = new daum.maps.InfoWindow({
+	    				    position : iwPosition, 
+	    				    content : iwContent 
+	    				});
+					          
+ 
+   			            
+   			            
+   			      // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+   			         daum.maps.event.addListener(marker, 'click', function() {
+   			             
+   			        	 if(overlay!=null) overlay.setMap(null);
+	  			            overlay = new daum.maps.CustomOverlay({
+	   			                content: content,
+	   			                map: map,
+	   			                position: markerPosition      
+	   			            }); 
+   			        	 overlay.setMap(map);
+   			         });
+	    				// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	    			    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	    			    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));	
+	    					
+	    				}
+						
+						
+		              //일반 마커 표시하는 함수
 	    				function justMarker(locPosition,hoLat,hoLng,content){
 	    					var markerPosition=locPosition;
 	    					var marker=new daum.maps.Marker({

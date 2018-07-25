@@ -63,7 +63,7 @@
 			
 			$.ajax({
 				crossDomain : true,
-				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName,
 				type : 'get',
 				dataType : 'json',
 				beforeSend: loading(),
@@ -166,7 +166,7 @@
 			
 			$.ajax({
 				crossDomain : true,
-				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName,
+				url : apiUrl+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName,
 				type : 'get',
 				dataType : 'json',
 				beforeSend: loading(),
@@ -200,7 +200,7 @@
 		                     $("#div_ajax_load_image").show();
 		              }
 		              else {
-		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:rgba(250,250,250,0); filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 		              }
 		       }
 		

@@ -242,7 +242,7 @@
 		                     $("#div_ajax_load_image").show();
 		              }
 		              else {
-		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:rgba(250,250,250,0); filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 		              }
 
 		       },
@@ -340,6 +340,7 @@
 		             // 마커가 지도 위에 표시되도록 설정합니다
 						map.setCenter(locPosition);
 		             
+		             //현위치 마커 표시하는 함수
 						function nowMarker(locPosition){
 
 		    				var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -361,7 +362,7 @@
 						}
 						
 						
-		              //마커만 표시하는 함수
+		              //병원 마커 표시하는 함수(열려 있는 병원에만 적용)
 	    				function onMarker(locPosition,hoLat,hoLng,content){
 		            	  var imageSrc="${pageContext.request.contextPath}/resources/img/hosMarker.png";
 		            	  var imageSize = new daum.maps.Size(35, 35);
@@ -403,7 +404,7 @@
 	    					
 	    				}
 		              
-			              //마커만 표시하는 함수
+			              //일반 마커 표시하는 함수
 	    				function justMarker(locPosition,hoLat,hoLng,content){
 	    					var markerPosition=locPosition;
 	    					var marker=new daum.maps.Marker({
@@ -532,7 +533,7 @@
 			                     $("#div_ajax_load_image").show();
 			              }
 			              else {
-			                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+			                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:rgba(250,250,250,0); filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 			              }
 
 			       },
