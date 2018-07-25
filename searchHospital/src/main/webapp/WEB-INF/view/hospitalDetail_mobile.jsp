@@ -170,7 +170,7 @@
     </nav>
 
   <!--    Services -->
-    <section id="services">
+    <section id="services" style="padding-bottom:0px">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
