@@ -34,7 +34,7 @@
 	</style>
 	
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3e32ceed08105786094c4f98f7482467"></script>
+    <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0465833cd0a7a33e459cd71b363bc38e"></script>
     <script type="text/javascript">
     var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+"${hospitalId}";
