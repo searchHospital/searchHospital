@@ -41,6 +41,7 @@
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <style>
+   /* 지도 마커 팝업에서 필요한 css 틀을 그대로 가져옴. by 다음 지도 */ 
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
     .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -121,7 +122,7 @@
 				</div>
 				</div>
 			
-			<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9266c0989eff5725cf55a5ad10b485e3"></script>
+			<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3e32ceed08105786094c4f98f7482467"></script>
 	
 			<script type="text/javascript">
 			

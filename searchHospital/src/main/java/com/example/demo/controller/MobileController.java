@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.Calendar;
 
+import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MobileController {
 	@RequestMapping(value="/home_mobile",method=RequestMethod.GET)
-	public String hospitalDetail(Model model) {
+	public String home_mobile(SitePreference sitePreference, Model model) {
 
 		Calendar cal = Calendar.getInstance(); 
 
@@ -26,11 +27,16 @@ public class MobileController {
 		model.addAttribute("minute",minute);
 		model.addAttribute("today", num );
 		
-		return "home_mobile";
+		if (sitePreference == SitePreference.MOBILE || sitePreference == SitePreference.TABLET) {
+			return "home_mobile";
+		}
+		else {
+			return "home";
+		}
 	}
 	
 	@RequestMapping(value="/address_mobile",method=RequestMethod.GET)
-	public String home_mobile(Model model) {
+	public String address_mobile(SitePreference sitePreference, Model model) {
 
 		Calendar cal = Calendar.getInstance(); 
 
@@ -45,11 +51,16 @@ public class MobileController {
 		model.addAttribute("minute",minute);
 		model.addAttribute("today", num );
 		
-		return "address_mobile";
+		if (sitePreference == SitePreference.MOBILE || sitePreference == SitePreference.TABLET) {
+			return "address_mobile";
+		}
+		else {
+			return "address";
+		}
 	}
 	
 	@RequestMapping(value="/mapSearch_mobile",method=RequestMethod.GET)
-	public String map(Model model) {
+	public String map(SitePreference sitePreference, Model model) {
 		Calendar cal = Calendar.getInstance(); 
 
 		int num = cal.get(Calendar.DAY_OF_WEEK)-1;
@@ -63,11 +74,16 @@ public class MobileController {
 		model.addAttribute("minute",minute);
 		model.addAttribute("today", num );
 		
-		return "mapSearch_mobile";
+		if (sitePreference == SitePreference.MOBILE || sitePreference == SitePreference.TABLET) {
+			return "mapSearch_mobile";
+		}
+		else {
+			return "mapSearch";
+		}
 	}
 	
 	@RequestMapping(value="/hospitalDetail_mobile",method=RequestMethod.GET)
-	public String hospitalDetail(Model model, @RequestParam(value = "hospitalId", required=true) String hospitalId) {
+	public String hospitalDetail(SitePreference sitePreference, Model model, @RequestParam(value = "hospitalId", required=true) String hospitalId) {
 
 		Calendar cal = Calendar.getInstance(); 
 
@@ -85,7 +101,12 @@ public class MobileController {
 		model.addAttribute("hospitalId", hospitalId );
 
 		
-		return "hospitalDetail_mobile";
+		if (sitePreference == SitePreference.MOBILE || sitePreference == SitePreference.TABLET) {
+			return "hospitalDetail_mobile";
+		}
+		else {
+			return "hospitalDetail";
+		}
 	}
 	
 }
