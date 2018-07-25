@@ -28,7 +28,7 @@
     <!-- <link href="css/agency.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" class="first">
 	var pageNo=1;
 	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";

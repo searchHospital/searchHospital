@@ -32,7 +32,7 @@
     #mainNav .navbar-nav .nav-item .nav-link {color:white;}
 	</style>
     
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
     	/* 메뉴바 */

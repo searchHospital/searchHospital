@@ -13,11 +13,9 @@
     <title>Find Helper! - open hospital</title>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
 
     <!-- Custom fonts for this template -->
-    <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
@@ -25,7 +23,6 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <!-- <link href="css/agency.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
     <style>
@@ -36,9 +33,12 @@
     a {font-size:20px;}
     select {width:275px; margin-bottom:5px;}
     </style>
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" class="first">
+	
 	var pageNo=1;
+	
 	var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 	
 	$(document).ready(function() {
@@ -58,13 +58,9 @@
 			
 			console.log(searchSubject);
 			
-			if(searchAdd!=null){
-			apiUrl += "&pageNo="+pageNo;
-			}
+			if(searchAdd!=null){ apiUrl += "&pageNo="+pageNo; }
 			
-			if(searchSubject!=""){
-				apiUrl += "&QD="+searchSubject;
-				}
+			if(searchSubject!=""){apiUrl += "&QD="+searchSubject;}
 			
 		
 			document.getElementById('listhospital').innerHTML ="";

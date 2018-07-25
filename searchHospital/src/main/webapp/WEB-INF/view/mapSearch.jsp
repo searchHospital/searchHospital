@@ -38,7 +38,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/agency.css">
 
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
 
   <style>
    /* 지도 마커 팝업에서 필요한 css 틀을 그대로 가져옴. by 다음 지도 */ 
@@ -61,10 +61,7 @@
 </head>
 
 
-<body>
-			
-			
-
+<body>			
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
