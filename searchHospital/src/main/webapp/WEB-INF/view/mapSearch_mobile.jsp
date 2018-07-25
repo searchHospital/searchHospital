@@ -293,7 +293,7 @@
 	 	    						var output = '';
 				                    
 	 	    						/* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:21px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
 	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6> <hr color="gray">';
@@ -309,7 +309,7 @@
 		                    var output = '';
 		                    console.log(myItem.length);
 		                    
-		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:25px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
+		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:21px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
 		                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
