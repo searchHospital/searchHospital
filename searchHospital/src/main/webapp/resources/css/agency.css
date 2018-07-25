@@ -416,6 +416,8 @@ header.masthead.intro-text.intro-heading {
 }
 
 .dim-layer {
+	overflow-y:auto;
+	-webkit-overflow-scrolling:touch;
   display: none;
   position: fixed;
   _position: absolute;
@@ -871,13 +873,4 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 	padding-top : 10px;
 	padding-bottom : 10px;
 	display:grid;
-	grid-template-columns:repeat(2,1fr);
-	grid-template-columns:40% 60%
-}
-.map{
-	grid-column: 1 / 2;
-}
-.basicInfo{
-	font-family:'Malgun Gothic';
-	grid-column: 2 / 3;
 }

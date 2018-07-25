@@ -31,7 +31,9 @@
     <style>
     #mainNav .navbar-nav .nav-item .nav-link {color:white;} 
     #search_name, #detailAdd {width:275px;}
-        select {width:275px; margin-bottom:5px;}
+    .pop-layer{left:8vw;width:85vw;}
+    a {font-size:21px;}
+    select {width:275px; margin-bottom:5px;}
     </style>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" class="first">
@@ -202,7 +204,7 @@
 		                     $("#div_ajax_load_image").show();
 		              }
 		              else {
-		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
+		                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:none; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
 		              }
 		       }
 		
@@ -234,11 +236,11 @@
 								if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 									  var output = '';
 					                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>';
-					                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
-						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
-					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
-					                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5><hr color="gray">';
+					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a><br>';
+					                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
+						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:120px; height: auto;">';
+					                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
+					                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h6><hr color="gray">';
 					                    document.getElementById('listhospital').innerHTML += output;             
 								}
 	                	}	
@@ -255,11 +257,11 @@
 						if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 							  var output = '';
 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
-			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>';
-			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
-				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
-			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyAddr+'</h5>';
-			                    output += '<h5 style="color:#5B5B5B">'+myItem.dutyTel1+'</h5><hr color="gray">';
+			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a><br>';
+			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
+				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:120px; height: auto;">';
+			                    output += '<h6 style="color:#5B5B5B">'+myItem.dutyAddr+'</h6>';
+			                    output += '<h6 style="color:#5B5B5B">'+myItem.dutyTel1+'</h6><hr color="gray">';
 			                    document.getElementById('listhospital').innerHTML += output;             
 						}
             	}
@@ -359,7 +361,7 @@
 			        document.getElementById('hopitalDetail').innerHTML += contents;
 			        
 					$('#btn-detail').empty();
-			        document.getElementById('btn-detail').innerHTML += "<a href=\"${pageContext.request.contextPath}/hospitalDetail?hospitalId="
+			        document.getElementById('btn-detail').innerHTML += "<a href=\"${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId="
 			        		+hosItem.hpid+"\" class=\"btn-layerDetail\" target=\"_blank\">상세보기</a>";
 			},
 		error : function(e){
@@ -497,7 +499,7 @@
  	</div>
  	</div>
  	</div>
-
+ 	
 <div class="dim-layer">
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">

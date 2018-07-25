@@ -25,6 +25,18 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
+    <style>
+    #detail {background:rgba(250,250,250,0.7); padding:40px;}
+	.map{ grid-column: 1 / 2; }
+	.basicInfo{
+	font-family:'Malgun Gothic';
+	grid-column: 2 / 3; }
+	.detailInfo-top{
+	grid-template-columns:repeat(2,1fr);
+	grid-template-columns:40% 60%
+	}
+    </style>
+    
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9266c0989eff5725cf55a5ad10b485e3"></script>
     <script type="text/javascript">
@@ -134,10 +146,7 @@
 	});
 
     </script>
-    <style>
-    #detail {background:rgba(250,250,250,0.7);
-    padding:40px;}
-    </style>
+    
 </head>
 
 <body id="page-top">

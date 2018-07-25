@@ -27,6 +27,7 @@
     
     <style>
     #mainNav .navbar-nav .nav-item .nav-link {color:white;}
+    .detailInfo-top{grid-template-columns:none;}
 	</style>
 	
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -45,7 +46,7 @@
 				var detailItem = data.response.body.items.item;
 			    
 				// 병원 명
-				document.getElementById('detailInfo-Name').innerHTML += "<h1>"+detailItem.dutyName+"</h1> <hr size=\"50\" color=\"gray\">";
+				document.getElementById('detailInfo-Name').innerHTML += "<h4>"+detailItem.dutyName+"</h4> <hr color='gray'>";
 				
 				
 				//지도
@@ -85,16 +86,13 @@
 				 var hos_open_hour, hos_open_minute;
 				 var hos_close_hour, hos_close_minute;
 				 var day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","공휴일"];
-				 detailTime +='<table>';
 				
-			        for(var i=0;i<2;i++){
-			        	detailTime +='<tr>';
-			        	for(var j=1;j<=4;j++){
-			        	detailTime += '<td width="300">&sdot; '+day[i*4+j-1]+' ';
-			        	var search_open = "dutyTime"+(i*4+j)+"s";
-			        	var search_close = "dutyTime"+(i*4+j)+"c";
-			        if(detailItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); detailTime += ' -</td>';}
-			        else if(detailItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); detailTime += ' -</td>';}
+			        for(var i=1;i<=8;i++){
+			        	detailTime += '<p>&sdot; '+day[i-1]+' ';
+			        	var search_open = "dutyTime"+i+"s";
+			        	var search_close = "dutyTime"+i+"c";
+			        if(detailItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); detailTime += ' -</p>';}
+			        else if(detailItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); detailTime += ' -</p>';}
 			        else{
 					hos_open = JSON.stringify(detailItem[search_open]);
 					hos_close = JSON.stringify(detailItem[search_close]);
@@ -111,10 +109,8 @@
 					hos_close_hour = hos_close.substring(0,2);
 					hos_close_minute = hos_close.substring(2,4);
 					
-					detailTime += hos_open_hour+":"+hos_open_minute+" ~ "+hos_close_hour+":"+hos_close_minute+'</td>';
+					detailTime += hos_open_hour+":"+hos_open_minute+" ~ "+hos_close_hour+":"+hos_close_minute+'</p>';
 			        }
-			        }
-			        	detailTime += '</tr>';
 			        }
 			        detailTime += '</table><hr size="10">';
 			       
@@ -185,23 +181,22 @@
 
 <div id="detail" class="container">
  	<div id="detailInfo-Name" style="padding-bottom:30px"></div>
- 	<div id="detailInfo-top" class="detailInfo-top" style="width:100%; height:300px; padding-bottom:30px">
- 	<div id="detailMap"></div>
- 	<div id="basicInfo">
+ 	<div id="detailInfo-top" class="detailInfo-top">
+ 	<div id="detailMap"  style="width:100%; height:200px; margin-bottom:30px"></div>
+ 	<div id="basicInfo" style="margin-bottom:30px">
  	<table border="1"></table>
  	</div>
  	</div>
  	<div id="detailInfo-contents"> 
- 	<div id="detailInfo-contents-time" style="margin-bottom:30px"><h5>진료시간</h5><hr size="10" color="gray"></div>
- 	<div id="detailInfo-contents-subject" style="margin-bottom:30px"><h5>진료과목</h5><hr size="10" color="gray"></div>
- 	<div id="detailInfo-contents-info" style="margin-bottom:30px"><h5>비고</h5><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-time" style="margin-bottom:30px"><h6>진료시간</h6><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-subject" style="margin-bottom:30px"><h6>진료과목</h6><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-info" style="margin-bottom:30px"><h6>비고</h6><hr size="10" color="gray"></div>
  	</div>
  	</div>
 
 			<!-- Footer -->
 			<footer>
-							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
-						
+			<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>			
 			</footer>
 
     <!-- Contact form JavaScript -->
