@@ -27,7 +27,10 @@
     
     <style>
     #mainNav .navbar-nav .nav-item .nav-link {color:white;}
+    #basicInfo th{padding-left:5px; font-size:13px; width:65px;}
+	#basicInfo td{padding-left:5px; font-size:13px;}
     .detailInfo-top{grid-template-columns:none;}
+    p{font-size:13px;}
 	</style>
 	
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -117,7 +120,7 @@
 				 $('#detailInfo-contents-time').append(detailTime);
 				 
 				 //진료과목
-				 var detailSubject = '&sdot; '+detailItem.dgidIdName+'<hr size="10">';
+				 var detailSubject = '<p>&sdot; '+detailItem.dgidIdName+'</p><hr size="10">';
 				 $('#detailInfo-contents-subject').append(detailSubject);
 
 				//비고
@@ -184,7 +187,7 @@
  	<div id="detailInfo-top" class="detailInfo-top">
  	<div id="detailMap"  style="width:100%; height:200px; margin-bottom:30px"></div>
  	<div id="basicInfo" style="margin-bottom:30px">
- 	<table border="1"></table>
+ 	<table id="basicInfo-table"></table>
  	</div>
  	</div>
  	<div id="detailInfo-contents"> 

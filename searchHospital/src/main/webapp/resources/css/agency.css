@@ -874,3 +874,12 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 	padding-bottom : 10px;
 	display:grid;
 }
+
+#basicInfo-table{
+	line-height: 2;
+	border: 1px solid #ccc;
+}
+
+#basicInfo-table th, #basicInfo-table td{
+	border: 1px solid #ccc;
+}

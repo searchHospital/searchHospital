@@ -27,14 +27,11 @@
     
     <style>
     #detail {background:rgba(250,250,250,0.7); padding:40px;}
-	.map{ grid-column: 1 / 2; }
-	.basicInfo{
-	font-family:'Malgun Gothic';
-	grid-column: 2 / 3; }
-	.detailInfo-top{
-	grid-template-columns:repeat(2,1fr);
-	grid-template-columns:40% 60%
-	}
+	#detailMap{ grid-column: 1 / 2; }
+	#basicInfo{ font-family:'Malgun Gothic'; grid-column: 2 / 3; padding-left:30px;}
+	#basicInfo th{padding-left:10px; width:130px;}
+	#basicInfo td{padding-left:10px; width:500px;}
+	.detailInfo-top{ grid-template-columns:repeat(2,1fr); grid-template-columns:40% 60% }
     </style>
     
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -194,7 +191,7 @@
  	<div id="detailInfo-top" class="detailInfo-top" style="width:100%; height:300px; padding-bottom:30px">
  	<div id="detailMap"></div>
  	<div id="basicInfo">
- 	<table border="1"></table>
+ 	<table id = "basicInfo-table"></table>
  	</div>
  	</div>
  	<div id="detailInfo-contents"> 
