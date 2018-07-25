@@ -3,10 +3,12 @@ package com.example.demo.configuration;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.Filter;
 import javax.xml.transform.Source;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -42,6 +44,7 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import com.example.demo.filter.CORSFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -134,20 +137,6 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(deviceResolverHandlerInterceptor());
 	    registry.addInterceptor(sitePreferenceHandlerInterceptor());
     }
-    
-	/*@Bean
-	public TilesConfigurer tilesConfigurer(){
-	    TilesConfigurer tilesConfigurer = new TilesConfigurer();
-	    tilesConfigurer.setDefinitions(new String[] {"/views/tiles/tiles.xml"});
-	    tilesConfigurer.setCheckRefresh(true);
-	    return tilesConfigurer;
-	}*/
-	
-	/*@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-		TilesViewResolver viewResolver = new TilesViewResolver();
-		registry.viewResolver(viewResolver);
-	}*/
 	
 	@Bean
 	public DeviceResolverHandlerInterceptor 
@@ -165,6 +154,22 @@ public class WebConfiguration implements WebMvcConfigurer {
 	public SitePreferenceHandlerMethodArgumentResolver 
 	        sitePreferenceHandlerMethodArgumentResolver() {
 	    return new SitePreferenceHandlerMethodArgumentResolver();
+	}
+	
+	@Bean
+    public FilterRegistrationBean registrationFilter() {
+        
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(corsFilter());
+		registration.addUrlPatterns("/*");
+		registration.setName("cors");
+		registration.setOrder(1);
+		
+        return registration;
+    }
+	
+	public Filter corsFilter() {
+		return new CORSFilter();
 	}
 	
 	@Override

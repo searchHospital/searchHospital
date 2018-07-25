@@ -134,7 +134,7 @@
             //지도 생성 및 현재 위치 인식
 			var container = document.getElementById('map');
 			var options = {
-				center : new daum.maps.LatLng(33.450701, 126.570667),
+				center : new daum.maps.LatLng(37.5673, 127.0057),
 				level : 4
 			};
 
