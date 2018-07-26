@@ -26,33 +26,18 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
     <style>
-    #detail {background:rgba(250,250,250,0.7); padding:40px;}
-	#detailMap{ grid-column: 1 / 2; }
-	#basicInfo{ font-family:'Malgun Gothic'; grid-column: 2 / 3; padding-left:30px;}
-	#basicInfo th{padding-left:10px; width:130px;}
-	#basicInfo td{padding-left:10px; width:500px;}
-	.detailInfo-top{ grid-template-columns:repeat(2,1fr); grid-template-columns:40% 60% }
-    </style>
-    
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script>
-$(document).ready(function(){ 
-  $(window).scroll(function(){ 
-    var scroll = $(window).scrollTop(); 
-    if(scroll>1){ 
-      $(".navbar").css("background","rgba(250,250,250,0.9)"); 
-    } 
-    else{ 
-      $(".navbar").css("background","rgba(0,0,0,0)"); 
-    } 
-  }) 
-})
-</script>
-    
+    #mainNav .navbar-nav .nav-item .nav-link {color:white;}
+    #basicInfo th{padding-left:5px; font-size:13px; width:65px;}
+	#basicInfo td{padding-left:5px; font-size:13px;}
+    .detailInfo-top{grid-template-columns:none;}
+    p{font-size:13px;}
+	</style>
+	
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0465833cd0a7a33e459cd71b363bc38e"></script>
     <script type="text/javascript">
     var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
+	//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+"${hospitalId}";
 	var apiUrl = "${pageContext.request.contextPath}/hosDetail?&HPID="+"${hospitalId}";
 	$(document).ready(function() {
 		$.ajax({
@@ -60,38 +45,12 @@ $(document).ready(function(){
 			url : apiUrl,
 			type : 'get',
 			dataType : "json",
-			//로딩표시
-			beforeSend: function () { 
-	              var width = 0;
-	              var height = 0;
-	              var left = 0;
-	              var top = 0;
-
-
-	              width = 50;
-	              height = 50;
-	              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
-	              left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
-
-	              if($("#div_ajax_load_image").length != 0) {
-	                     $("#div_ajax_load_image").css({
-	                            "top": top+"px",
-	                            "left": left+"px"
-	                     });
-	                     $("#div_ajax_load_image").show();
-	              }
-	              else {
-	                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:rgba(250,250,250,0); filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="${pageContext.request.contextPath}/resources/img/load.gif" style="width:50px; height:50px;"></div>');
-	              }
-
-	       },
 			success:function(data){
-				 $("#div_ajax_load_image").hide();
 				console.log(apiUrl);
 				var detailItem = data.json.response.body.items.item;
 			    
 				// 병원 명
-				document.getElementById('detailInfo-Name').innerHTML += "<h1>"+detailItem.dutyName+"</h1> <hr size=\"50\" color=\"gray\">";
+				document.getElementById('detailInfo-Name').innerHTML += "<h4>"+detailItem.dutyName+"</h4> <hr color='gray'>";
 				
 				
 				//지도
@@ -118,7 +77,7 @@ $(document).ready(function(){
 				// 기본 정보 표
 				var table='';
 				table+='<tr><th id=\"address\">주소</th><td>'+detailItem.dutyAddr+'</td></tr>';
-				table+='<tr><th id="tel">대표전화</th><td>'+detailItem.dutyTel1+'</td></tr>';
+				table+='<tr><th id="tel">대표전화</th><td><a href=tel:"'+detailItem.dutyTel1+'"" style="font-size:13px; font-weight: normal;">'+detailItem.dutyTel1+'</a></td></tr>';
 				if(detailItem.dutyMapimg==null) detailItem.dutyMapimg='-';
 				table+='<tr><th id="info">소개</th><td>'+detailItem.dutyMapimg+'</td></tr>';
 				
@@ -131,16 +90,13 @@ $(document).ready(function(){
 				 var hos_open_hour, hos_open_minute;
 				 var hos_close_hour, hos_close_minute;
 				 var day = ["월요일","화요일","수요일","목요일","금요일","토요일","일요일","공휴일"];
-				 detailTime +='<table>';
 				
-			        for(var i=0;i<2;i++){
-			        	detailTime +='<tr>';
-			        	for(var j=1;j<=4;j++){
-			        	detailTime += '<td width="300">&sdot; '+day[i*4+j-1]+' ';
-			        	var search_open = "dutyTime"+(i*4+j)+"s";
-			        	var search_close = "dutyTime"+(i*4+j)+"c";
-			        if(detailItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); detailTime += ' -</td>';}
-			        else if(detailItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); detailTime += ' -</td>';}
+			        for(var i=1;i<=8;i++){
+			        	detailTime += '<p>&sdot; '+day[i-1]+' ';
+			        	var search_open = "dutyTime"+i+"s";
+			        	var search_close = "dutyTime"+i+"c";
+			        if(detailItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); detailTime += ' -</p>';}
+			        else if(detailItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); detailTime += ' -</p>';}
 			        else{
 					hos_open = JSON.stringify(detailItem[search_open]);
 					hos_close = JSON.stringify(detailItem[search_close]);
@@ -157,17 +113,15 @@ $(document).ready(function(){
 					hos_close_hour = hos_close.substring(0,2);
 					hos_close_minute = hos_close.substring(2,4);
 					
-					detailTime += hos_open_hour+":"+hos_open_minute+" ~ "+hos_close_hour+":"+hos_close_minute+'</td>';
+					detailTime += hos_open_hour+":"+hos_open_minute+" ~ "+hos_close_hour+":"+hos_close_minute+'</p>';
 			        }
-			        }
-			        	detailTime += '</tr>';
 			        }
 			        detailTime += '</table><hr size="10">';
 			       
 				 $('#detailInfo-contents-time').append(detailTime);
 				 
 				 //진료과목
-				 var detailSubject = '&sdot; '+detailItem.dgidIdName+'<hr size="10">';
+				 var detailSubject = '<p>&sdot; '+detailItem.dgidIdName+'</p><hr size="10">';
 				 $('#detailInfo-contents-subject').append(detailSubject);
 
 				//비고
@@ -178,14 +132,22 @@ $(document).ready(function(){
 				 $('#detailInfo-contents-info').append(detailInfo);
 			},
 			error:function(e){
-				$("#div_ajax_load_image").hide();
 				console.log("Detail Page API Loding Error")
 			}
+		});
+		/* 메뉴바 */
+		$("#menuBar").click(function(){
+			if($("#navbarResponsive").css("display")=="none") $("#navbarResponsive").css("display","block");
+			else{
+			$("#navbarResponsive").css("display","none"); }
 		});
 	});
 
     </script>
-    
+    <style>
+    #detail {background:rgba(250,250,250,0.7);
+    padding:40px;}
+    </style>
 </head>
 
 <body id="page-top">
@@ -193,28 +155,23 @@ $(document).ready(function(){
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/">Find Helper</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">Find Helper</a>
+			<button id="menuBar" class="navbar-toggler navbar-toggler-right">
           Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/">home</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/mapSearch">MY LOCATION</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="${pageContext.request.contextPath}/address">ADDRESS</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger"
-						href="http://lifesemantics.kr/">Contact</a></li>
-          </ul>
-        </div>
+          <i class="fa fa-bars"></i></button>
+			<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none;">
+			<ul class="navbar-nav text-uppercase ml-auto" >
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/home_mobile">home</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/mapSearch_mobile">MY LOCATION</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="${pageContext.request.contextPath}/address_mobile">ADDRESS</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="http://lifesemantics.kr/">Contact</a></li>
+				</ul>
+				</div>
       </div>
     </nav>
 
   <!--    Services -->
-    <section id="services">
+    <section id="services" style="padding-bottom:0px">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -227,23 +184,22 @@ $(document).ready(function(){
 
 <div id="detail" class="container">
  	<div id="detailInfo-Name" style="padding-bottom:30px"></div>
- 	<div id="detailInfo-top" class="detailInfo-top" style="width:100%; height:300px; padding-bottom:30px">
- 	<div id="detailMap"></div>
- 	<div id="basicInfo">
- 	<table id = "basicInfo-table"></table>
+ 	<div id="detailInfo-top" class="detailInfo-top">
+ 	<div id="detailMap"  style="width:100%; height:200px; margin-bottom:30px"></div>
+ 	<div id="basicInfo" style="margin-bottom:30px">
+ 	<table id="basicInfo-table"></table>
  	</div>
  	</div>
  	<div id="detailInfo-contents"> 
- 	<div id="detailInfo-contents-time" style="margin-bottom:30px"><h5>진료시간</h5><hr size="10" color="gray"></div>
- 	<div id="detailInfo-contents-subject" style="margin-bottom:30px"><h5>진료과목</h5><hr size="10" color="gray"></div>
- 	<div id="detailInfo-contents-info" style="margin-bottom:30px"><h5>비고</h5><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-time" style="margin-bottom:30px"><h6>진료시간</h6><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-subject" style="margin-bottom:30px"><h6>진료과목</h6><hr size="10" color="gray"></div>
+ 	<div id="detailInfo-contents-info" style="margin-bottom:30px"><h6>비고</h6><hr size="10" color="gray"></div>
  	</div>
  	</div>
 
 			<!-- Footer -->
 			<footer>
-							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
-						
+			<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>			
 			</footer>
 
     <!-- Contact form JavaScript -->
