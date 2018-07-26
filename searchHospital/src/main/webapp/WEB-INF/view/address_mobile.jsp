@@ -160,7 +160,7 @@
 				apiUrl += "&pageNo="+pageNo;
 				}*/
 			
-			var apiUrl="${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName+"&QD="+searchSubject;
+			var apiUrl="${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
 			
 			if(searchSubject!=""){
 				apiUrl += "&QD="+searchSubject;
