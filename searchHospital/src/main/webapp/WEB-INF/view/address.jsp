@@ -394,7 +394,20 @@
 		else return "off";
 	}
 </script>
-
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>
+$(document).ready(function(){ 
+  $(window).scroll(function(){ 
+    var scroll = $(window).scrollTop(); 
+    if(scroll>1){ 
+      $(".navbar").css("background","rgba(250,250,250,0.9)"); 
+    } 
+    else{ 
+      $(".navbar").css("background","rgba(0,0,0,0)"); 
+    } 
+  }) 
+})
+</script>
   </head>
 
   <body id="page-top">

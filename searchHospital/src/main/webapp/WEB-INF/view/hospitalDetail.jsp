@@ -34,6 +34,21 @@
 	.detailInfo-top{ grid-template-columns:repeat(2,1fr); grid-template-columns:40% 60% }
     </style>
     
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>
+$(document).ready(function(){ 
+  $(window).scroll(function(){ 
+    var scroll = $(window).scrollTop(); 
+    if(scroll>1){ 
+      $(".navbar").css("background","rgba(250,250,250,0.9)"); 
+    } 
+    else{ 
+      $(".navbar").css("background","rgba(0,0,0,0)"); 
+    } 
+  }) 
+})
+</script>
+    
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0465833cd0a7a33e459cd71b363bc38e"></script>
     <script type="text/javascript">
