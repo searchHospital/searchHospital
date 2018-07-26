@@ -501,8 +501,8 @@ $(document).ready(function(){
 				var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 				var apiUrl = "${pageContext.request.contextPath}/hosDetail?&HPID="+hpID;
 				var today = "${today}";
-				//var hour = "${hour}";
-				var hour = 9; //시간 테스트용
+				var hour = "${hour}";
+				//var hour = 9; //시간 테스트용
 				var minute = "${minute}";
 				
 		/* 		console.log("today : " + today);

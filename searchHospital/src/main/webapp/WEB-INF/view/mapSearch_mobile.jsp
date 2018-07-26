@@ -463,8 +463,8 @@
 				var apiUrl = "${pageContext.request.contextPath}/hosDetail?&HPID="+hpID;
 
 				var today = "${today}";
-				//var hour = "${hour}";
-				var hour = 9; //시간 테스트용
+				var hour = "${hour}";
+				//var hour = 9; //시간 테스트용
 				var minute = "${minute}";
 			
 				var hos_open, hos_close;

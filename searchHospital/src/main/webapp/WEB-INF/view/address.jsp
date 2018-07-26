@@ -49,12 +49,12 @@
 			var searchName = $("#search_name").val();
 			var searchSubject = $("#subject option:selected").val();
 			
-			console.log(searchSubject);
-			var apiUrl = "${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
 			
 			/* if(searchAdd!=null){
-			apiUrl += "&pageNo="+pageNo;
-			} */
+			apiUrl += "&pageNo="+pageNo;}
+			console.log(searchSubject); */
+			var apiUrl = "${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
+			
 			
 			if(searchSubject!=""){
 				apiUrl += "&QD="+searchSubject;
@@ -368,8 +368,8 @@
 	/* 현재 진료중인지 check */
 	function nowOpen(json){
 		var today = "${today}";
-		//var hour = "${hour}";
-		var hour = 9;
+		var hour = "${hour}";
+		//var hour = 9;
 		var minute = "${minute}";
 
 		var hos_open, hos_close;

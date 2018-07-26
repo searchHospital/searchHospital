@@ -158,18 +158,20 @@
 			
 /* 			if(searchAdd!=null){
 				apiUrl += "&pageNo="+pageNo;
-				}
+				}*/
+			
+			var apiUrl="${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName+"&QD="+searchSubject;
 			
 			if(searchSubject!=""){
 				apiUrl += "&QD="+searchSubject;
-				} */
+				} 
 			
 			
 			if(sido=="") { alert("'시/도'를 선택해주세요."); return false;}
 			
 			$.ajax({
 				crossDomain : true,
-				url : "${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName+"&QD="+searchSubject,
+				url : apiUrl,
 				type : 'get',
 				dataType : 'json',
 				beforeSend: loading(),
@@ -370,8 +372,8 @@
 	/* 현재 진료중인지 check */
 	function nowOpen(json){
 		var today = "${today}";
-		//var hour = "${hour}";
-		var hour = 9;
+		var hour = "${hour}";
+		//var hour = 9;
 		var minute = "${minute}";
 
 		var hos_open, hos_close;
