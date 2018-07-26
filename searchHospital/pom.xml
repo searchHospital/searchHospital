@@ -68,6 +68,11 @@
 		    <artifactId>spring-boot-starter-mobile</artifactId>
 		    <version>1.5.14.RELEASE</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.2</version>
+		</dependency>
 </dependencies>
 
 	<build>

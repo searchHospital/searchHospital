@@ -206,8 +206,8 @@
 		$('#getData').click(function() {
 			
 			var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
-			var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?serviceKey="+serviceKey+"&WGS84_LON="+lon+"&WGS84_LAT="+lat+"&numOfRows=30";
-
+			//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?serviceKey="+serviceKey+"&WGS84_LON="+lon+"&WGS84_LAT="+lat+"&numOfRows=30";
+			var apiUrl = "${pageContext.request.contextPath}/hosLocation?&WGS84_LON="+lon+"&WGS84_LAT="+lat;
 			 $("#listhospital").empty();
 			$.ajax({
 				crossDomain : true,
@@ -242,7 +242,7 @@
 		       
 				success : function (data) {
 					 $("#div_ajax_load_image").hide();
-					 var myItem = data.response.body.items.item;
+					 var myItem = data.json.response.body.items.item;
 					 
 					 var locPosition=new daum.maps.LatLng(lat,lon);
 					 var container = document.getElementById('map');
@@ -459,7 +459,9 @@
 			function openHospital(hpID){
 				
 				var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
-				var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+hpID;
+				//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+hpID;
+				var apiUrl = "${pageContext.request.contextPath}/hosDetail?&HPID="+hpID;
+
 				var today = "${today}";
 				//var hour = "${hour}";
 				var hour = 9; //시간 테스트용
@@ -503,7 +505,7 @@
 					success: function(data){
 						 $("#div_ajax_load_image").hide();
 						 
-						 var openHo = data.response.body.items.item;
+						 var openHo = data.json.response.body.items.item;
 						 console.log(apiUrl);
 				if(openHo.dutyTime${today}s==null) {console.log("진료 시작 시간 정보 없음"); result = "off"; return false;}
 				if(openHo.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); result = "off"; return false;}

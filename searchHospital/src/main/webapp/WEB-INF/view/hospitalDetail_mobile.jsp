@@ -37,7 +37,8 @@
     <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0465833cd0a7a33e459cd71b363bc38e"></script>
     <script type="text/javascript">
     var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
-	var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+"${hospitalId}";
+	//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlBassInfoInqire?serviceKey="+ serviceKey+"&HPID="+"${hospitalId}";
+	var apiUrl = "${pageContext.request.contextPath}/hosDetail?&HPID="+"${hospitalId}";
 	$(document).ready(function() {
 		$.ajax({
 			crossDomain : true,
@@ -46,7 +47,7 @@
 			dataType : "json",
 			success:function(data){
 				console.log(apiUrl);
-				var detailItem = data.response.body.items.item;
+				var detailItem = data.json.response.body.items.item;
 			    
 				// 병원 명
 				document.getElementById('detailInfo-Name').innerHTML += "<h4>"+detailItem.dutyName+"</h4> <hr color='gray'>";
