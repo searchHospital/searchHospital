@@ -493,9 +493,9 @@ $(document).ready(function(){
 				//var hour = 9; //시간 테스트용
 				var minute = "${minute}";
 				
-/* 		 		console.log("today : " + today);
+		 		console.log("today : " + today);
 				console.log("hour : " + hour);
-				console.log("minute : " + minute);  */
+				console.log("minute : " + minute); 
 
 				var hos_open, hos_close;
 				var hos_open_hour, hos_open_minute;

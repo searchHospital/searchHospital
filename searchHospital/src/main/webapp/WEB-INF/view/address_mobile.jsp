@@ -246,7 +246,7 @@
 			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:136px; height: auto;">';
 			                    output += '<h6 style="color:#5B5B5B">'+myItem.dutyAddr+'</h6>';
-			                    output += '<h6 style="color:#5B5B5B"><a href="tel:'+myItem.dutyTel1+'"style="font-size:15px; font-weight: normal;">'+myItem[i].dutyTel1+'</a></h6><hr color="gray">';
+			                    output += '<h6 style="color:#5B5B5B"><a href="tel:'+myItem.dutyTel1+'"style="font-size:15px; font-weight: normal;">'+myItem.dutyTel1+'</a></h6><hr color="gray">';
 			                    document.getElementById('listhospital').innerHTML += output;             
 						}
             	}

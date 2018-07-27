@@ -191,10 +191,9 @@
 			    
 			    // 마커 이미지를 생성합니다    
 			    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
-				var markerPosition=locPosition;
 				var marker=new daum.maps.Marker({
 					map:map,
-					position:markerPosition,
+					position:locPosition,
 					image:markerImage
 				});
 				
