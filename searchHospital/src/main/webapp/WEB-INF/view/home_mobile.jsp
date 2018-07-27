@@ -13,11 +13,9 @@
     <title>Find Helper! - open hospital</title>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
 
     <!-- Custom fonts for this template -->
-    <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
@@ -25,7 +23,6 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <!-- <link href="css/agency.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/agency.css">
     
 	<style>
@@ -34,6 +31,7 @@
     
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
+    
     $(document).ready(function() {
     	/* 메뉴바 */
 		$("#menuBar").click(function(){
@@ -42,8 +40,7 @@
 			$("#navbarResponsive").css("display","none"); }
 		});
     });
-    		</script>
-
+    </script>
   </head>
 
   <body id="page-top">
@@ -89,17 +86,6 @@
 <footer>
 				<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
-
-    <!-- Contact form JavaScript -->
-    <script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
-    <script src="<c:url value="/js/contact_me.js"/>"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="<c:url value="/js/agency.min.js"/>"></script>
-    
-    <script src="<c:url value ="/resources/js/agency.js"/>"></script>
-    <script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
-        <script src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script>
         
   </body>
 

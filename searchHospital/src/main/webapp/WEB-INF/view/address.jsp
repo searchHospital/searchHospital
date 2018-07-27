@@ -39,8 +39,6 @@
 
 			$('#moreView').css("display","block");
 			
-
-
 			//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
 			var sido = $("#sido option:selected").val();
 			var sigungu = $("#sigungu option:selected").val();
@@ -55,12 +53,10 @@
 			console.log(searchSubject); */
 			var apiUrl = "${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
 			
-			
 			if(searchSubject!=""){
 				apiUrl += "&QD="+searchSubject;
 				} 
 			
-		
 			document.getElementById('listhospital').innerHTML ="";
 			
 			if(sido=="") { alert("'시/도'를 선택해주세요."); return false;}
@@ -73,13 +69,10 @@
 				dataType : 'json',
 				beforeSend: loading(),
 				success : function(data){
-					console.log("*************${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName);
-					console.log(data);
 					getData(data);
 				},
 				error : function(e) {
 					alert("error!");
-					console.log("*************${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName);
 				}
 			});
 		});
@@ -134,7 +127,6 @@
 		/* 더보기 */
 		$('#moreView').click(function(){
 			pageNo++;
-			console.log(pageNo);
 			
 			//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
 
@@ -145,8 +137,6 @@
 			var searchName = $("#search_name").val();
 			var searchSubject = $("#subject option:selected").val();
 			
-			console.log(searchName);
-
 			var apiUrl = "${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
 /* 			if(searchAdd!=null){
 				apiUrl += "&pageNo="+pageNo;
@@ -216,8 +206,6 @@
 			 }else if(myItem.length != null){ // 검색 결과가 여러개일 경우,
 				 var searchAdd = $("#detailAdd").val();
 				
-				console.log(myItem.length);
-				
 	                for(var i=0; i<myItem.length; i++){
 	            		isOpen = nowOpen(myItem[i]);
 	            		
@@ -226,7 +214,6 @@
 						if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
 								if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 									  var output = '';
-					                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 					                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem[i].hpid+'\')">'+myItem[i].dutyName+'</a>';
 					                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
 						                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
@@ -247,7 +234,6 @@
 				if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
 						if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 							  var output = '';
-			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a>';
 			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
 				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
@@ -301,7 +287,6 @@
 	/* 상세페이지 팝업 - 데이터 가져오기 */
 	function hospitalDetail(hosID){
 		var detailUrl = '${pageContext.request.contextPath}/hosDetail?&HPID='+hosID;
-				
 		
 		$.ajax({
 			crossDomain : true,
@@ -309,13 +294,7 @@
 			type : 'get',
 			dataType : "json",
 			success: function(data){
-				console.log("상세정보 api 불러오기 success!!");
-				console.log(detailUrl);
-				
-				console.log(data);
 				 var hosItem = data.json.response.body.items.item;
-				 
-				 
 				 var contents = '';
 				 var hos_open;
 				 var hos_close;
@@ -332,17 +311,14 @@
 			        	contents += '<p>'+day[i-1];
 			        	var search_open = "dutyTime"+i+"s";
 			        	var search_close = "dutyTime"+i+"c";
-			        if(hosItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); contents += ' Open - 진료 시간 정보 없음 </p>';}
-			        else if(hosItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); contents += ' Close - 진료 시간 정보 없음 </p>';}
+			        if(hosItem[search_open]==null) {contents += ' Open - 진료 시간 정보 없음 </p>';}
+			        else if(hosItem[search_close]==null) { contents += ' Close - 진료 시간 정보 없음 </p>';}
 			        else{
 					hos_open = JSON.stringify(hosItem[search_open]);
 					hos_close = JSON.stringify(hosItem[search_close]);
 					
 					hos_open = hos_open.replace("\"", "");
 					hos_close = hos_close.replace("\"", "");
-					 
-					console.log("open - "+hos_open);
-					console.log("close - "+hos_close);
 					
 					hos_open_hour = hos_open.substring(0,2);
 					hos_open_minute = hos_open.substring(2,4);
@@ -360,7 +336,7 @@
 			        		+hosItem.hpid+"\" class=\"btn-layerDetail\" target=\"_blank\">상세보기</a>";
 			},
 		error : function(e){
-			console.log("상세정보 api 불러오기 error!!");
+			alert("error!");
 		}
 		});
 	}
@@ -369,15 +345,14 @@
 	function nowOpen(json){
 		var today = "${today}";
 		var hour = "${hour}";
-		//var hour = 9;
 		var minute = "${minute}";
 
 		var hos_open, hos_close;
 		var hos_open_hour, hos_open_minute;
 		var hos_close_hour, hos_close_minute;
 		
-		if(json.dutyTime${today}s==null) {console.log("진료 시작 시간 정보 없음"); return "진료 시작 시간 정보 없음";}
-		if(json.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); return "진료 종료 시간 정보 없음";}
+		if(json.dutyTime${today}s==null) { return "진료 시작 시간 정보 없음";}
+		if(json.dutyTime${today}c==null) { return "진료 종료 시간 정보 없음";}
 		
 		hos_open = JSON.stringify(json.dutyTime${today}s);
 		hos_close = JSON.stringify(json.dutyTime${today}c);
@@ -529,17 +504,6 @@ $(document).ready(function(){
 			<footer>
 				<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
-
-    <!-- Contact form JavaScript -->
-    <script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
-    <script src="<c:url value="/js/contact_me.js"/>"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="<c:url value="/js/agency.min.js"/>"></script>
-    
-    <script src="<c:url value ="/resources/js/agency.js"/>"></script>
-    <script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
-        <script src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script>
         
   </body>
 

@@ -67,7 +67,6 @@ $(document).ready(function(){
 	              var left = 0;
 	              var top = 0;
 
-
 	              width = 50;
 	              height = 50;
 	              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
@@ -87,7 +86,6 @@ $(document).ready(function(){
 	       },
 			success:function(data){
 				 $("#div_ajax_load_image").hide();
-				console.log(apiUrl);
 				var detailItem = data.json.response.body.items.item;
 			    
 				// 병원 명
@@ -139,17 +137,14 @@ $(document).ready(function(){
 			        	detailTime += '<td width="300">&sdot; '+day[i*4+j-1]+' ';
 			        	var search_open = "dutyTime"+(i*4+j)+"s";
 			        	var search_close = "dutyTime"+(i*4+j)+"c";
-			        if(detailItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); detailTime += ' -</td>';}
-			        else if(detailItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); detailTime += ' -</td>';}
+			        if(detailItem[search_open]==null) { detailTime += ' -</td>';}
+			        else if(detailItem[search_close]==null) {detailTime += ' -</td>';}
 			        else{
 					hos_open = JSON.stringify(detailItem[search_open]);
 					hos_close = JSON.stringify(detailItem[search_close]);
 					
 					hos_open = hos_open.replace("\"", "");
 					hos_close = hos_close.replace("\"", "");
-					
-					console.log("open - "+hos_open);
-					console.log("close - "+hos_close);
 					
 					hos_open_hour = hos_open.substring(0,2);
 					hos_open_minute = hos_open.substring(2,4);
@@ -179,7 +174,6 @@ $(document).ready(function(){
 			},
 			error:function(e){
 				$("#div_ajax_load_image").hide();
-				console.log("Detail Page API Loding Error")
 			}
 		});
 	});
@@ -245,17 +239,6 @@ $(document).ready(function(){
 							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 						
 			</footer>
-
-    <!-- Contact form JavaScript -->
-    <script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
-    <script src="<c:url value="/js/contact_me.js"/>"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="<c:url value="/js/agency.min.js"/>"></script>
-    
-    <script src="<c:url value ="/resources/js/agency.js"/>"></script>
-    <script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
-        <script src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script>
         
   </body>
 
