@@ -256,8 +256,6 @@ $(document).ready(function(){
 		       },
 		       
 				success : function (data) {
-					//console.log("success!");
-					//console.log(apiUrl);
 					 $("#div_ajax_load_image").hide();
 					 var myItem = data.json.response.body.items.item;
 					 
@@ -310,14 +308,12 @@ $(document).ready(function(){
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
 				                    
-	 			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank">'+hoName+'</a> '+'<h4> '+myItem[i].distance+"km"+'</h4>';
 		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
 	 			                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h5>';
 	 			                    output += '<h5 style="color:#5B5B5B">'+myItem[i].dutyTel1+'</h5> <hr color="gray">';
 	 			                    
 	 			                    document.getElementById('listhospital').innerHTML += output;
-	 			                   /*  $("#listhospital").html(output); */
 	 			                   
 	 			          
 	 			                   onMarker(hoPosition,hoLat,hoLng,content);
@@ -329,7 +325,6 @@ $(document).ready(function(){
 		                    var output = '';
 		                    
 		                    
-		                   /*  output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail?hospitalId='+myItem[i].hpid+'" target="_blank">'+hoName+'</a> '+'<h4> '+myItem[i].distance+"km"+'</h4>';
 		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none;">';
 			                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png">';
@@ -338,7 +333,6 @@ $(document).ready(function(){
 		                    
 		                    document.getElementById('listhospital').innerHTML += output;
 		                    
-		                   /*  $("#listhospital").html(output); */
 
 		                   if (isOpen=="on") onMarker(hoPosition,hoLat,hoLng,content);
 		                   else justMarker(hoPosition,hoLat,hoLng,content);
@@ -472,11 +466,6 @@ $(document).ready(function(){
 	    				}
 	    				
 
- /*    						var lat=position.coords.latitude, 
-    						lon=position.coords.longitude;
-    					
-    						locPosition=new daum.maps.LatLng(lat,lon); */
-
     						
 				},
 				error : function(e) {
@@ -496,7 +485,6 @@ $(document).ready(function(){
 			
 			// 현재 진료중인지 check (hpID=고유 기관 ID를 통해 병원 분별)
 			function openHospital(hpID){
-				//document.getElementById('search').innerHTML += "<P>The time is ${hour}:${minute}. date is ${today} </P>";
 				
 				var serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 				var apiUrl = "${pageContext.request.contextPath}/hosDetail?&HPID="+hpID;
@@ -505,9 +493,9 @@ $(document).ready(function(){
 				//var hour = 9; //시간 테스트용
 				var minute = "${minute}";
 				
-		/* 		console.log("today : " + today);
+/* 		 		console.log("today : " + today);
 				console.log("hour : " + hour);
-				console.log("minute : " + minute); */
+				console.log("minute : " + minute);  */
 
 				var hos_open, hos_close;
 				var hos_open_hour, hos_open_minute;
@@ -559,8 +547,6 @@ $(document).ready(function(){
 				hos_open = hos_open.replace("\"", "");
 				hos_close = hos_close.replace("\"", "");
 				 
-				/* console.log("open - "+hos_open);
-				console.log("close - "+hos_close); */
 				
 				hos_open_hour = hos_open.substring(0,2);
 				hos_open_minute = hos_open.substring(2,4);
@@ -568,8 +554,6 @@ $(document).ready(function(){
 				hos_close_hour = hos_close.substring(0,2);
 				hos_close_minute = hos_close.substring(2,4);
 				
-				/* console.log("open - "+hos_open_hour+":"+hos_open_minute);
-				console.log("close - "+hos_close_hour+":"+hos_close_minute); */
 				
 				
 				if(hour>hos_open_hour&&hour<hos_close_hour) {result = "on"; return true;}
@@ -595,24 +579,7 @@ $(document).ready(function(){
 							<span class="copyright" style="text-align: center;">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 						
 			</footer>
-			
-			
-			<!-- Contact form JavaScript -->
-			<script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
-			<script src="<c:url value="/js/contact_me.js"/>"></script>
 
-			<!-- Custom scripts for this template -->
-			<script src="<c:url value="/js/agency.min.js"/>"></script>
-
-			<script src="<c:url value ="/resources/js/agency.js"/>"></script>
-			<script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
-			<script
-				src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script>
-
-
-			
-
-			
 			
 			</body>
 </html>
