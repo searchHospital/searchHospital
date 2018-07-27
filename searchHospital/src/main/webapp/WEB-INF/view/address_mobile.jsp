@@ -54,8 +54,6 @@
 			var searchName = $("#search_name").val();
 			var searchSubject = $("#subject option:selected").val();
 			
-			console.log(searchSubject);
-			
 			var apiUrl = "${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
 			
 /* 			if(searchAdd!=null){ apiUrl += "&pageNo="+pageNo; }*/
@@ -75,13 +73,10 @@
 				dataType : 'json',
 				beforeSend: loading(),
 				success : function(data){
-					console.log("*************${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName);
-					console.log(data);
 					getData(data);
 				},
 				error : function(e) {
 					alert("error!");
-					console.log("*************${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+"&QN="+searchName);
 				}
 			});
 		});
@@ -143,8 +138,6 @@
 		/* 더보기 */
 		$('#moreView').click(function(){
 			pageNo++;
-			console.log(pageNo);
-			
 			//var apiUrl = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+ serviceKey;
 
 			var sido = $("#sido option:selected").val();
@@ -154,11 +147,7 @@
 			var searchName = $("#search_name").val();
 			var searchSubject = $("#subject option:selected").val();
 			
-			console.log(searchName);
-			
-/* 			if(searchAdd!=null){
-				apiUrl += "&pageNo="+pageNo;
-				}*/
+/* 			if(searchAdd!=null){apiUrl += "&pageNo="+pageNo;}*/
 			
 			var apiUrl="${pageContext.request.contextPath}/hosList?pageNo="+pageNo+"&Q0="+sido+"&Q1="+sigungu+searchAdd+"&QN="+searchName;
 			
@@ -225,8 +214,6 @@
 			 }else if(myItem.length != null){ // 검색 결과가 여러개일 경우,
 				 var searchAdd = $("#detailAdd").val();
 				
-				console.log(myItem.length);
-				
 	                for(var i=0; i<myItem.length; i++){
 	            		isOpen = nowOpen(myItem[i]);
 	            		
@@ -255,7 +242,6 @@
 				if(myItem_address.indexOf(searchAdd)!=-1||searchAdd==null){
 						if(($('input:checkbox[id="open"]').is(":checked") == true &&isOpen=="on")||$('input:checkbox[id="open"]').is(":checked") != true){
 							  var output = '';
-			                    /* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 			                    output += '<a href="#layer2" class="btn-example" onclick="hospitalDetail(\''+myItem.hpid+'\')">'+myItem.dutyName+'</a><br>';
 			                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 				                 else output +=  '<img src="${pageContext.request.contextPath}/resources/img/off_icon.png" style="width:136px; height: auto;">';
@@ -315,9 +301,6 @@
 			type : 'get',
 			dataType : "json",
 			success: function(data){
-				console.log("상세정보 api 불러오기 success!!");
-				console.log(detailUrl);
-				
 				 var hosItem = data.json.response.body.items.item;
 				 
 				 var contents = '';
@@ -336,17 +319,14 @@
 			        	contents += '<p>'+day[i-1];
 			        	var search_open = "dutyTime"+i+"s";
 			        	var search_close = "dutyTime"+i+"c";
-			        if(hosItem[search_open]==null) {console.log("진료 시작 시간 정보 없음"); contents += ' Open - 진료 시간 정보 없음 </p>';}
-			        else if(hosItem[search_close]==null) {console.log("진료 종료 시간 정보 없음"); contents += ' Close - 진료 시간 정보 없음 </p>';}
+			        if(hosItem[search_open]==null) {contents += ' Open - 진료 시간 정보 없음 </p>';}
+			        else if(hosItem[search_close]==null) {contents += ' Close - 진료 시간 정보 없음 </p>';}
 			        else{
 					hos_open = JSON.stringify(hosItem[search_open]);
 					hos_close = JSON.stringify(hosItem[search_close]);
 					
 					hos_open = hos_open.replace("\"", "");
 					hos_close = hos_close.replace("\"", "");
-					 
-					console.log("open - "+hos_open);
-					console.log("close - "+hos_close);
 					
 					hos_open_hour = hos_open.substring(0,2);
 					hos_open_minute = hos_open.substring(2,4);
@@ -363,8 +343,7 @@
 			        document.getElementById('btn-detail').innerHTML += "<a href=\"${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId="
 			        		+hosItem.hpid+"\" class=\"btn-layerDetail\" target=\"_blank\">상세보기</a>";
 			},
-		error : function(e){
-			console.log("상세정보 api 불러오기 error!!");
+		error : function(e){ alert("error!");
 		}
 		});
 	}
@@ -373,15 +352,14 @@
 	function nowOpen(json){
 		var today = "${today}";
 		var hour = "${hour}";
-		//var hour = 9;
 		var minute = "${minute}";
 
 		var hos_open, hos_close;
 		var hos_open_hour, hos_open_minute;
 		var hos_close_hour, hos_close_minute;
 		
-		if(json.dutyTime${today}s==null) {console.log("진료 시작 시간 정보 없음"); return "진료 시작 시간 정보 없음";}
-		if(json.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); return "진료 종료 시간 정보 없음";}
+		if(json.dutyTime${today}s==null) { return "진료 시작 시간 정보 없음";}
+		if(json.dutyTime${today}c==null) { return "진료 종료 시간 정보 없음";}
 		
 		hos_open = JSON.stringify(json.dutyTime${today}s);
 		hos_close = JSON.stringify(json.dutyTime${today}c);
@@ -452,7 +430,7 @@
  	<div class="search-line" style="padding: 20px 20px">
  	<div class="search filter">
  	<div class="search input" style="text-align:center; padding-bottom:15px;">
- 	<p class="section-sub" style="font-size:14px; font-weight:bold;text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!!</p><br>
+ 	<p class="section-sub" style="font-size:14px; font-weight:bold;text-align:center">방문하기 전 한 번 더 확인하시고, 방문하세요!</p><br>
 
  	<select id="sido"></select>
 	<select id="sigungu"></select><br>
@@ -518,16 +496,6 @@
 				<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
 
-    <!-- Contact form JavaScript -->
-    <script src="<c:url value="/js/jqBootstrapValidation.js"/>"></script>
-    <script src="<c:url value="/js/contact_me.js"/>"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="<c:url value="/js/agency.min.js"/>"></script>
-    
-    <script src="<c:url value ="/resources/js/agency.js"/>"></script>
-    <script src="<c:url value ="/resources/js/contact_me.min.js"/>"></script>
-        <script src="<c:url value ="/resources/js/jqBootstrapValidation.min.js"/>"></script>
         
   </body>
 

@@ -39,8 +39,6 @@ public class APIController {
 		String serviceKey = "pP9VPbZwCcbzJcH7LgaeR0Doj%2B3k99MHP758dc2j1uTBjuo9zNnmsYHUn4OyFcxoeHVNzM4%2FCGasKNCDpH5MLg%3D%3D";
 		String address = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire?serviceKey="+serviceKey;
 		
-		System.out.println("#############################################" + pageNo);
-		
 		if(pageNo != null)
 			address = address + "&" + "pageNo=" + URLEncoder.encode(pageNo, "UTF-8");
         if(Q0 != null)
@@ -53,8 +51,6 @@ public class APIController {
         	address = address + "&" + "QN=" + URLEncoder.encode(QN, "UTF-8");
 	        
         address = address + "&" + "_type=json";
-	        
-		System.out.println("************************************** " + address);
         
 		CloseableHttpClient httpclient = HttpClients.createDefault(); 
 		HttpGet httpGet = new HttpGet(address);
@@ -67,9 +63,6 @@ public class APIController {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse( json );
 		JSONObject jsonObj = (JSONObject) obj;
-		
-		        
-		System.out.println(jsonObj);
 		
 		// json = json 객체로 내려야되용 String = > Json 으로 변경
 		// 그리고 client단에서 기존에 받는 방식에서 주소 변경 , 받아오는 값 변경
@@ -109,8 +102,7 @@ public class APIController {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse( json );
 		JSONObject jsonObj = (JSONObject) obj;
-		        
-		System.out.println(jsonObj);
+		     
 		modelMap.addAttribute("json", jsonObj);
 	    httpclient.close();
 	        
@@ -137,8 +129,6 @@ public class APIController {
         	address = address + "&" + "WGS84_LAT=" + URLEncoder.encode(WGS84_LAT, "UTF-8");
 	        
         address = address + "&" + "numOfRows=30" + "&" + "_type=json";
-	        
-		System.out.println("************************************** " + address);
         
 		CloseableHttpClient httpclient = HttpClients.createDefault(); 
 		HttpGet httpGet = new HttpGet(address);
@@ -151,9 +141,6 @@ public class APIController {
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse( json );
 		JSONObject jsonObj = (JSONObject) obj;
-		
-		        
-		System.out.println(jsonObj);
 		
 		modelMap.addAttribute("json", jsonObj);
 	    httpclient.close();

@@ -221,7 +221,6 @@
 		              var left = 0;
 		              var top = 0;
 
-
 		              width = 50;
 		              height = 50;
 		              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
@@ -255,8 +254,6 @@
 	    				var map = new daum.maps.Map(container, options);
 	    				nowMarker(locPosition);
 	    			
- 
- 	    				
 		                for(var i=0;i<myItem.length; i++){
     						var hoName=myItem[i].dutyName;
 		                    var hoLat=myItem[i].latitude;
@@ -285,13 +282,10 @@
 			                    //현재 진료 가능한 병원만 보려고 하는 경우
 	 	    				if($('input:checkbox[id="open"]').is(":checked") == true){
 
-
-	 	    					
 	 	    					//열려있는 경우만 목록 출력
 	 	    					if(isOpen=="on"){
 	 	    						var output = '';
 				                    
-	 	    						/* output += '<h3>'+ i + '번째 병원' +'</h3>'; */
 		                    		output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:20px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                    		output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
 	 			                    output += '<h6 style="color:#5B5B5B">'+myItem[i].dutyAddr+'</h6>';
@@ -306,7 +300,6 @@
 			                    //모든 병원 목록 출력
 	 	    				else{
 		                    var output = '';
-		                    console.log(myItem.length);
 		                    
 		                    output += '<a href="${pageContext.request.contextPath}/hospitalDetail_mobile?hospitalId='+myItem[i].hpid+'" target="_blank" style="font-size:20px;">'+hoName+'</a> '+'<h5 style="text-align:right"> '+myItem[i].distance+"km"+'</h5>';
 		                  	if (isOpen=="on") output += '<img src="${pageContext.request.contextPath}/resources/img/on_icon.png" style="_background:none; width:120px; height: auto;">';
@@ -367,9 +360,6 @@
 	    				    position : iwPosition, 
 	    				    content : iwContent 
 	    				});
-					          
- 
-   			            
    			            
    			      // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
    			         daum.maps.event.addListener(marker, 'click', function() {
@@ -406,7 +396,6 @@
 	    				    position : iwPosition, 
 	    				    content : iwContent 
 	    				});
-					          
    			            
    			            
    			      // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
@@ -423,7 +412,6 @@
 	    				// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	    			    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 	    			    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));	
-	    					
 	    				}
 		              
 	    				// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -443,7 +431,6 @@
 				},
 				error : function(e) {
 					alert("error!");
-					console.log(apiUrl);
 					 $("#div_ajax_load_image").hide();
 				}
 			});
@@ -464,7 +451,6 @@
 
 				var today = "${today}";
 				var hour = "${hour}";
-				//var hour = 9; //시간 테스트용
 				var minute = "${minute}";
 			
 				var hos_open, hos_close;
@@ -506,9 +492,8 @@
 						 $("#div_ajax_load_image").hide();
 						 
 						 var openHo = data.json.response.body.items.item;
-						 console.log(apiUrl);
-				if(openHo.dutyTime${today}s==null) {console.log("진료 시작 시간 정보 없음"); result = "off"; return false;}
-				if(openHo.dutyTime${today}c==null) {console.log("진료 종료 시간 정보 없음"); result = "off"; return false;}
+				if(openHo.dutyTime${today}s==null) { result = "off"; return false;}
+				if(openHo.dutyTime${today}c==null) { result = "off"; return false;}
 				
 				hos_open = JSON.stringify(openHo.dutyTime${today}s);
 				hos_close = JSON.stringify(openHo.dutyTime${today}c);
@@ -544,18 +529,6 @@
 				<span class="copyright" style="text-align: center; font-size:10px">Copyright &copy; Park soeun & Kim kyoungryoung 2018</span>
 			</footer>
 			
-			<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-
-			<!-- Contact form JavaScript -->
-			<script src="${pageContext.request.contextPath}/resources/js/jqBootstrapValidation.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/contact_me.js"></script>
-
-			<!-- Custom scripts for this template -->
-			<script src="${pageContext.request.contextPath}/resources/js/agency.min.js"></script>
-
-			<script src="${pageContext.request.contextPath}/resources/js/agency.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/contact_me.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/js/jqBootstrapValidation.min.js"></script>
 
 			</body>
 </html>
